@@ -31,4 +31,53 @@ public class Pago {
         this.litros = litros;
 
     }
+
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    public int getID_cliente() {
+        return ID_cliente;
+    }
+
+    public void setID_cliente(int ID_cliente) {
+        this.ID_cliente = ID_cliente;
+    }
+
+    public LocalDate getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
+    }
+
+    public double getImporte() {
+        return importe;
+    }
+
+    public void setImporte(double importe) {
+        this.importe = importe;
+    }
+
+    public double getLitros() {
+        return litros;
+    }
+
+    public void setLitros(double litros) {
+        this.litros = litros;
+    }
+
+    public String getCombustible() {
+        return combustible;
+    }
+
+    public void setCombustible(String combustible) {
+        this.combustible = combustible;
+    }
 }

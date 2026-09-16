@@ -1,15 +1,18 @@
-import java.util.Date;
+import java.time.LocalDate;
+
 
 public class Cliente {
-    int ID = 0;
+    private static byte contador;
+    byte ID = 0;
     String nombre;
     String telefono;
-    Date fecha;
+    LocalDate fecha;
     String matricula;
 
 
-    public Cliente( String nombre, String telefono, Date fecha, String matricula) {
-        ID = ID+1;
+    public Cliente( String nombre, String telefono, LocalDate fecha, String matricula) {
+        contador ++;
+        this.ID = contador;
         this.nombre = nombre;
         this.telefono = telefono;
         this.fecha = fecha;
@@ -17,11 +20,11 @@ public class Cliente {
     }
 
 
-    public int getID() {
+    public byte getID() {
         return ID;
     }
 
-    public void setID(int ID) {
+    public void setID(byte ID) {
         this.ID = ID;
     }
 
@@ -41,11 +44,11 @@ public class Cliente {
         this.telefono = telefono;
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 
@@ -55,6 +58,18 @@ public class Cliente {
 
     public void setMatricula(String matricula) {
         this.matricula = matricula;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                "ID=" + ID +
+                ", nombre='" + nombre + '\'' +
+                ", telefono='" + telefono + '\'' +
+                ", fecha=" + fecha +
+                ", matricula='" + matricula + '\'' +
+                '}';
     }
 }
 
