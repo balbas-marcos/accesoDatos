@@ -80,4 +80,17 @@ public class Pago {
     public void setCombustible(String combustible) {
         this.combustible = combustible;
     }
+
+
+    @Override
+    public String toString() {
+        return "Pago{" +
+                "ID=" + ID +
+                ", ID_cliente=" + ID_cliente +
+                ", fecha=" + fecha +
+                ", importe=" + importe +
+                ", litros=" + litros +
+                ", combustible='" + combustible + '\'' +
+                '}';
+    }
 }
