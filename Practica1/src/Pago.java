@@ -1,12 +1,16 @@
 import java.time.LocalDate;
 
 public class Pago {
+    private static byte contador;
     int ID;
     int ID_cliente;
     LocalDate fecha;
     double importe;
     double litros;
     String combustible;
+
+
+
 
     public Pago(int ID_cliente, LocalDate fecha, double importe, double litros, String combustible) {
         if (combustible == null || combustible.isEmpty()) {
@@ -18,7 +22,8 @@ public class Pago {
         } else {
             this.combustible = combustible;
         }
-        ID = ID + 1;
+        contador++;
+        ID = contador;
         this.ID_cliente = ID_cliente;
 
         if(fecha == null){
