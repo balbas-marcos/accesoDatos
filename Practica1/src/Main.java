@@ -77,7 +77,7 @@ public class Main {
         String combustible = null;
         if (gestion.clientesList.isEmpty()) {
             System.out.println("NO HAY NINGUN CLIENTE REGISTRADO");
-            throw new IllegalArgumentException("ERROR al crear el pago"5
+            throw new IllegalArgumentException("ERROR al crear el pago"
             );
         } else {
             boolean valido = false;
