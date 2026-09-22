@@ -77,6 +77,8 @@ public class Main {
         String combustible = null;
         if (gestion.clientesList.isEmpty()) {
             System.out.println("NO HAY NINGUN CLIENTE REGISTRADO");
+            throw new IllegalArgumentException("ERROR al crear el pago"5
+            );
         } else {
             boolean valido = false;
             do {
@@ -85,9 +87,10 @@ public class Main {
                 for (Cliente c : gestion.clientesList) {
                     if (c.getID() == id_cliente) {
                         valido = true;
-                    } else {
-                        System.out.println("ID cliente no encontrado vuelve a intentarlo");
                     }
+                }
+                if(!valido){
+                    System.out.println("No hay ningun cliente con el ID: "+id_cliente);
                 }
             } while (!valido);
             System.out.println("Introduce la fecha: ");
