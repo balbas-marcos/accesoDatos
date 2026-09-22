@@ -1,5 +1,6 @@
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import java.time.LocalDate;
@@ -9,8 +10,9 @@ import java.time.LocalDate;
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        ClienteGestion gestionCliente = new ClienteGestion();
-        PagoGestion gestionPago = new PagoGestion();
+        ILeerEscribir manejador = new ManejarCSV();
+        ClienteGestion gestionCliente = new ClienteGestion("src/clientes.csv",manejador);
+        PagoGestion gestionPago = new PagoGestion("src/pagos.csv",manejador);
 
         byte opcion = -1;
         do {
@@ -26,7 +28,8 @@ public class Main {
             opcion = sc.nextByte();
             switch (opcion) {
                 case 1:
-                    gestionCliente.guardar(altaCliente());
+                    Cliente cliente = altaCliente();
+                    gestionCliente.guardar(cliente);
                     break;
                 case 2:
                     for (Cliente c : gestionCliente.cargarTodos()) {
@@ -60,55 +63,54 @@ public class Main {
         System.out.print("Introduce tu fecha: ");
         String fechaString = sc.next();
         LocalDate fecha = LocalDate.parse(fechaString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        System.out.print("Introduce tu matricula: ");
-        String matricula = sc.nextLine();
+        System.out.println("Introduce tu matricula: ");
+        String matricula = sc.next();
 
         return new Cliente(nombre, telefono, fecha, matricula);
 
     }
 
-    public static Pago procesarPago(ClienteGestion gestion) {
+    public static Pago procesarPago(ClienteGestion gestion){
         Scanner sc = new Scanner(System.in);
-
+        boolean valido = false;
         int id_cliente = 0;
         LocalDate fecha = null;
         double importe = 0;
         double litros = 0;
         String combustible = null;
-        if (gestion.clientesList.isEmpty()) {
-            System.out.println("NO HAY NINGUN CLIENTE REGISTRADO");
-            throw new IllegalArgumentException("ERROR al crear el pago"
-            );
-        } else {
-            boolean valido = false;
-            do {
+        do{
+            try {
                 System.out.println("Introduce el ID del cliente: ");
                 id_cliente = sc.nextInt();
-                for (Cliente c : gestion.clientesList) {
-                    if (c.getID() == id_cliente) {
+                for (Cliente c : gestion.cargarTodos()){
+                    if(id_cliente == c.getID()){
                         valido = true;
+                    }else{
+                        System.out.println("No hay nigun cliente con el id: "+id_cliente);
                     }
                 }
-                if(!valido){
-                    System.out.println("No hay ningun cliente con el ID: "+id_cliente);
-                }
-            } while (!valido);
-            System.out.println("Introduce la fecha: ");
-            String fechaString = sc.next();
-            fecha = LocalDate.parse(fechaString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-            System.out.println("Introudce el importe: ");
-            importe = sc.nextDouble();
 
-            System.out.println("Introduce los litros: ");
-            litros = sc.nextDouble();
+            } catch (InputMismatchException e) {
+                System.out.println("ERROR: introduce un id: "+e.getMessage());
+            }
 
-            System.out.println("Introduce el combustible: ");
-            combustible = sc.next();
+        }while(!valido);
+        System.out.println("Introduce la fecha: ");
+        String fechaString = sc.next();
+        fecha = LocalDate.parse(fechaString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        System.out.println("Introudce el importe: ");
+        importe = sc.nextDouble();
 
+        System.out.println("Introduce los litros: ");
+        litros = sc.nextDouble();
 
-        }
+        System.out.println("Introduce el combustible: ");
+        combustible = sc.next();
+
         return new Pago(id_cliente, fecha, importe, litros, combustible);
     }
+
+
 }
 
 

@@ -13,10 +13,10 @@ public class Cliente {
     public Cliente( String nombre, String telefono, LocalDate fecha, String matricula) {
         contador ++;
         this.ID = contador;
-        this.nombre = nombre;
-        this.telefono = telefono;
+        this.nombre = nombre.trim();
+        this.telefono = telefono.trim();
         this.fecha = fecha;
-        this.matricula = matricula.toUpperCase();
+        this.matricula = matricula.toUpperCase().trim();
     }
 
 
