@@ -11,8 +11,8 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         ILeerEscribir manejador = new ManejarCSV();
-        ClienteGestion gestionCliente = new ClienteGestion("src/clientes.csv",manejador);
-        PagoGestion gestionPago = new PagoGestion("src/pagos.csv",manejador);
+        ClienteGestion gestionCliente = new ClienteGestion("src/clientes.csv", manejador);
+        PagoGestion gestionPago = new PagoGestion("src/pagos.csv", manejador);
 
         byte opcion = -1;
         do {
@@ -45,7 +45,7 @@ public class Main {
                     gestionPago.guardar(procesarPago(gestionCliente));
                     break;
                 case 5:
-                    for(Pago p : gestionPago.cargarTodos()){
+                    for (Pago p : gestionPago.cargarTodos()) {
                         System.out.println(p);
                     }
             }
@@ -70,7 +70,7 @@ public class Main {
 
     }
 
-    public static Pago procesarPago(ClienteGestion gestion){
+    public static Pago procesarPago(ClienteGestion gestion) {
         Scanner sc = new Scanner(System.in);
         boolean valido = false;
         int id_cliente = 0;
@@ -78,23 +78,24 @@ public class Main {
         double importe = 0;
         double litros = 0;
         String combustible = null;
-        do{
+        do {
             try {
                 System.out.println("Introduce el ID del cliente: ");
                 id_cliente = sc.nextInt();
-                for (Cliente c : gestion.cargarTodos()){
-                    if(id_cliente == c.getID()){
+                for (Cliente c : gestion.cargarTodos()) {
+                    if (id_cliente == c.getID()) {
                         valido = true;
-                    }else{
-                        System.out.println("No hay nigun cliente con el id: "+id_cliente);
                     }
                 }
-
+                if (!valido) {
+                    System.out.println("No existe el cliente con ID: " + id_cliente);
+                }
             } catch (InputMismatchException e) {
-                System.out.println("ERROR: introduce un id: "+e.getMessage());
+                System.out.println("ERROR: introduce un id: " + e.getMessage());
+                sc.nextLine();
             }
 
-        }while(!valido);
+        } while (!valido);
         System.out.println("Introduce la fecha: ");
         String fechaString = sc.next();
         fecha = LocalDate.parse(fechaString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
