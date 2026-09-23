@@ -1,7 +1,5 @@
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
 import java.time.LocalDate;
 
@@ -10,8 +8,8 @@ import java.time.LocalDate;
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        ILeerEscribir manejador = new ManejarCSV();
-        ClienteGestion gestionCliente = new ClienteGestion("src/archivosCSV/clientes.csv", manejador);
+        ILeerEscribir manejadorCliente = new ManejarCSVCliente();
+        ClienteGestion gestionCliente = new ClienteGestion("src/archivosCSV/clientes.csv", manejadorCliente);
         PagoGestion gestionPago = new PagoGestion("src/pagos.csv", manejador);
 
         byte opcion = -1;
@@ -32,7 +30,7 @@ public class Main {
                 opcion = sc.nextByte();
                 switch (opcion) {
                     case 1:
-                        Cliente cliente = altaCliente(gestionCliente, manejador);
+                        Cliente cliente = altaCliente(gestionCliente, manejadorCliente);
                         gestionCliente.guardar(cliente);
                         break;
                     case 2:

@@ -58,13 +58,6 @@ public class Cliente {
         this.matricula = matricula;
     }
 
-    public String toStringCSV() {
-        return ID + "," +
-                nombre + "," +
-                telefono + "," +
-                fecha + "," +
-                matricula + ";";
-    }
 
     @Override
     public String toString() {

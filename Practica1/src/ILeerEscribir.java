@@ -1,6 +1,6 @@
 import java.util.List;
 
-public interface ILeerEscribir {
-    void escribir(String ruta, List<Cliente> elementos);
-    List<String> leer(String ruta);
+public interface ILeerEscribir<T> {
+    void escribir(String ruta, List<T> elementos);
+    List<T> leer(String ruta);
 }
