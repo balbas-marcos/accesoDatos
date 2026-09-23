@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         ILeerEscribir manejador = new ManejarCSV();
-        ClienteGestion gestionCliente = new ClienteGestion("src/clientes.csv", manejador);
+        ClienteGestion gestionCliente = new ClienteGestion("Practica1/src/archivosCSV/clientes.csv", manejador);
         PagoGestion gestionPago = new PagoGestion("src/pagos.csv", manejador);
 
         byte opcion = -1;
@@ -28,7 +28,7 @@ public class Main {
             opcion = sc.nextByte();
             switch (opcion) {
                 case 1:
-                    Cliente cliente = altaCliente();
+                    Cliente cliente = altaCliente(gestionCliente);
                     gestionCliente.guardar(cliente);
                     break;
                 case 2:
@@ -54,7 +54,7 @@ public class Main {
     }
 
 
-    public static Cliente altaCliente() {
+    public static Cliente altaCliente(ClienteGestion gestionCliente) {
         Scanner sc = new Scanner(System.in);
         System.out.print("Introduce tu nombre: ");
         String nombre = sc.next();
@@ -66,7 +66,7 @@ public class Main {
         System.out.println("Introduce tu matricula: ");
         String matricula = sc.next();
 
-        return new Cliente(nombre, telefono, fecha, matricula);
+        return new Cliente(gestionCliente.ultimoID()+1, nombre, telefono, fecha, matricula);
 
     }
 

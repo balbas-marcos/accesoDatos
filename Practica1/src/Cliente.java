@@ -2,17 +2,15 @@ import java.time.LocalDate;
 
 
 public class Cliente {
-    private static byte contador;
-    byte ID = 0;
+    int ID = 0;
     String nombre;
     String telefono;
     LocalDate fecha;
     String matricula;
 
 
-    public Cliente( String nombre, String telefono, LocalDate fecha, String matricula) {
-        contador ++;
-        this.ID = contador;
+    public Cliente(int ID, String nombre, String telefono, LocalDate fecha, String matricula) {
+        this.ID = ID;
         this.nombre = nombre.trim();
         this.telefono = telefono.trim();
         this.fecha = fecha;
@@ -20,11 +18,11 @@ public class Cliente {
     }
 
 
-    public byte getID() {
+    public int getID() {
         return ID;
     }
 
-    public void setID(byte ID) {
+    public void setID(int ID) {
         this.ID = ID;
     }
 
@@ -60,6 +58,13 @@ public class Cliente {
         this.matricula = matricula;
     }
 
+    public String toStringCSV() {
+        return ID + ";" +
+                nombre + ";" +
+                telefono + ";" +
+                fecha + ";" +
+                matricula;
+    }
 
     @Override
     public String toString() {
@@ -71,5 +76,6 @@ public class Cliente {
                 ", matricula='" + matricula + '\'' +
                 '}';
     }
+
 }
 
