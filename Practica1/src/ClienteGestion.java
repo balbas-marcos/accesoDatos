@@ -13,21 +13,32 @@ public class ClienteGestion implements IGestionDatos<Cliente> {
 
     }
 
-    public int ultimoID(){
+    public int ultimoID() {
         List<String> lineas = manejador.leer(rutaArchivo);
 
-        if(!lineas.isEmpty()){
-            String ultimaLinea = lineas.get(lineas.size()-1);
-            String [] dato_id = ultimaLinea.split(";");
+        if (!lineas.isEmpty()) {
+            String ultimaLinea = lineas.get(lineas.size() - 1);
+            String[] dato_id = ultimaLinea.split(";");
             return Integer.parseInt(dato_id[0]);
+        } else {
+            return 0;
         }
-        return 0;
     }
 
     @Override
-    public void guardar(Cliente cliente){
-        clientesList.add(cliente);
-        manejador.escribir(rutaArchivo, cliente.toStringCSV());
+    public void guardar(Cliente cliente) {
+        boolean existe = false;
+        for (Cliente c : clientesList) {
+            if (c.getMatricula().equalsIgnoreCase(cliente.getMatricula())) {
+                existe = true;
+                break;
+            }
+        }
+        if (!existe) {
+            manejador.escribir(rutaArchivo, clientesList);
+        } else {
+            System.out.println("ERROR: Esa matricula ya esta registrada");
+        }
     }
 
     @Override
@@ -50,17 +61,16 @@ public class ClienteGestion implements IGestionDatos<Cliente> {
     }
 
     @Override
-    public Cliente leerporID(byte id){
-        for (Cliente c : clientesList){
-            if (c.getID() == id){
+    public Cliente leerporID(byte id) {
+        for (Cliente c : clientesList) {
+            if (c.getID() == id) {
                 return c;
-            }else{
-                System.out.println("Cliente con ID: "+id+" no encontrado");
+            } else {
+                System.out.println("Cliente con ID: " + id + " no encontrado");
             }
         }
         return null;
     }
-
 
 
 }

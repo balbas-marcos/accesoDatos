@@ -20,7 +20,7 @@ public class PagoGestion implements IGestionDatos<Pago> {
                 pago.getLitros() + ";" +
                 pago.getCombustible();
 
-        manejador.escribir(rutaArchivo, textoCSV);
+       // manejador.escribir(rutaArchivo, textoCSV);
     }
 
     @Override

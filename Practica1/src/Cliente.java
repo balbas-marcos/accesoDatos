@@ -59,11 +59,11 @@ public class Cliente {
     }
 
     public String toStringCSV() {
-        return ID + ";" +
-                nombre + ";" +
-                telefono + ";" +
-                fecha + ";" +
-                matricula;
+        return ID + "," +
+                nombre + "," +
+                telefono + "," +
+                fecha + "," +
+                matricula + ";";
     }
 
     @Override
