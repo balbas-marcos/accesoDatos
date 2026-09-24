@@ -24,7 +24,10 @@ public class ClienteGestion implements IGestionDatos<Cliente> {
             }
         }
         if (!existe) {
+            clientesList.add(cliente);
+            System.out.println(cliente);
             manejador.escribir(rutaArchivo, clientesList);
+            System.out.println("La ha mandado a manejarCSV");
         } else {
             System.out.println("ERROR: Esa matricula ya esta registrada");
         }

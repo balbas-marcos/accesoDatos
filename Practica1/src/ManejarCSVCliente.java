@@ -15,11 +15,12 @@ public class ManejarCSVCliente implements ILeerEscribir<Cliente> {
     }
 
     @Override
-    public int ultimoID(List<Cliente> clientes) {
-        if (clientes == null || clientes.isEmpty()) {
+    public int ultimoID(String ruta) {
+        List<Cliente>clientesActualizados = leer("Practica1/src/archivosCSV/clientes.csv");
+        if (clientesActualizados == null || clientesActualizados.isEmpty()) {
             return 0;
         }
-        Cliente ultimoCliente = clientes.get(clientes.size() - 1);
+        Cliente ultimoCliente = clientesActualizados.get(clientesActualizados.size() - 1);
         return ultimoCliente.getID();
     }
 
@@ -27,9 +28,10 @@ public class ManejarCSVCliente implements ILeerEscribir<Cliente> {
     @Override
     public void escribir(String ruta, List<Cliente> clientes) {
         Path archivo = Path.of(ruta);
-        try (BufferedWriter out = Files.newBufferedWriter(archivo, StandardOpenOption.CREATE, StandardOpenOption.APPEND)) {
+        try (BufferedWriter out = Files.newBufferedWriter(archivo, StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.APPEND)) {
             for (Cliente c : clientes) {
                 out.write(clienteToCSV(c));
+                out.newLine();
             }
         } catch (IOException e) {
             System.out.println("ERROR: " + e.getMessage());

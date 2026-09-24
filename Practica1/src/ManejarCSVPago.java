@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,11 +15,12 @@ public class ManejarCSVPago implements ILeerEscribir<Pago> {
     }
 
     @Override
-    public int ultimoID(List<Pago> pagos) {
-        if (pagos == null || pagos.isEmpty()) {
+    public int ultimoID(String ruta) {
+        List<Pago> pagosActualizados = leer(ruta);
+        if (pagosActualizados == null || pagosActualizados.isEmpty()) {
             return 0;
         }
-        Pago ultimoPago = pagos.get(pagos.size() - 1);
+        Pago ultimoPago = pagosActualizados.get(pagosActualizados.size() - 1);
         return ultimoPago.getID();
     }
 
@@ -26,9 +28,10 @@ public class ManejarCSVPago implements ILeerEscribir<Pago> {
     @Override
     public void escribir(String ruta, List<Pago> pagos) {
         Path archivo = Path.of(ruta);
-        try (BufferedWriter out = Files.newBufferedWriter(archivo)) {
+        try (BufferedWriter out = Files.newBufferedWriter(archivo, StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.APPEND)) {
             for (Pago p : pagos) {
                 out.write(pagoToCSV(p));
+                out.newLine();
             }
         } catch (IOException e) {
             System.out.println("ERROR: " + e.getMessage());
@@ -42,17 +45,16 @@ public class ManejarCSVPago implements ILeerEscribir<Pago> {
         try (BufferedReader in = Files.newBufferedReader(archivo, StandardCharsets.UTF_8)) {
             String linea;
             while ((linea = in.readLine()) != null) {
-                for (Pago p : leido) {
+                if (!linea.isBlank()) {
                     String[] datos = linea.split(",");
                     leido.add(new Pago(Integer.parseInt(datos[0]), Integer.parseInt(datos[1]), LocalDate.parse(datos[2]), Double.parseDouble(datos[3]), Double.parseDouble(datos[4]), datos[5]));
-                }
 
+                }
             }
-            return leido;
         } catch (IOException e) {
             System.out.println("ERROR: " + e.getMessage());
         }
-        return null;
+        return leido;
     }
 
     public String pagoToCSV(Pago p) {
@@ -61,7 +63,8 @@ public class ManejarCSVPago implements ILeerEscribir<Pago> {
                 p.getID_cliente() + "," +
                 p.getFecha() + "," +
                 p.getImporte() + "," +
-                p.getLitros();
+                p.getLitros() + "," +
+                p.getCombustible();
     }
 
 }

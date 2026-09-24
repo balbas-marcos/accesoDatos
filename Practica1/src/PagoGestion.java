@@ -12,34 +12,28 @@ public class PagoGestion implements IGestionDatos<Pago> {
     }
 
 
-
-
     @Override
     public void guardar(Pago pago) {
-        pagolist.add(pago);
-        String textoCSV = pago.getID_cliente() + ";" +
-                pago.getFecha() + ";" +
-                pago.getImporte() + ";" +
-                pago.getLitros() + ";" +
-                pago.getCombustible();
 
-       // manejador.escribir(rutaArchivo, textoCSV);
+        pagolist.add(pago);
+        manejador.escribir(rutaArchivo, pagolist);
+
     }
 
     @Override
     public List<Pago> cargarTodos() {
-        List<String> texto = manejador.leer(rutaArchivo);
+        List<Pago> texto = manejador.leer(rutaArchivo);
         //falta saber como leerlo y añadirlo a la lista de pagoList asi luego podremos buscar por ID
-        return pagolist;
+        return texto;
     }
 
     @Override
     public Pago leerporID(byte id) {
-        for (Pago p : pagolist){
-            if (p.getID() == id){
+        for (Pago p : pagolist) {
+            if (p.getID() == id) {
                 return p;
-            }else{
-                System.out.println("Cliente con ID: "+id+" no encontrado");
+            } else {
+                System.out.println("Cliente con ID: " + id + " no encontrado");
             }
         }
         return null;

@@ -1,17 +1,24 @@
+import java.time.DateTimeException;
 import java.time.format.DateTimeFormatter;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 import java.time.LocalDate;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
+    static String rutaClientes = "Practica1/src/archivosCSV/clientes.csv";
+    static String rutaPagos = "Practica1/src/archivosCSV/pagos.csv";
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+
+
         ILeerEscribir manejadorCliente = new ManejarCSVCliente();
         ILeerEscribir manejadorPago = new ManejarCSVPago();
-        ClienteGestion gestionCliente = new ClienteGestion("Practica1/src/archivosCSV/clientes.csv", manejadorCliente);
-        PagoGestion gestionPago = new PagoGestion("Practica1/src/archivosCSV/pagos.csv", manejadorPago);
+        ClienteGestion gestionCliente = new ClienteGestion(rutaClientes, manejadorCliente);
+        PagoGestion gestionPago = new PagoGestion(rutaPagos, manejadorPago);
 
         byte opcion = -1;
 
@@ -52,7 +59,7 @@ public class Main {
                             System.out.println(p);
                         }
                 }
-            }catch (InputMismatchException e){
+            } catch (InputMismatchException e) {
                 System.out.println("ERROR: Introduzca un numero");
                 sc.nextLine();
             }
@@ -63,21 +70,44 @@ public class Main {
 
     public static Cliente altaCliente(ClienteGestion gestionCliente, ILeerEscribir manejador) {
         Scanner sc = new Scanner(System.in);
+        LocalDate fecha = null;
+        String telefono = null;
+        boolean valido = false;
         try {
             System.out.print("Introduce tu nombre: ");
-            String nombre = sc.next();
-            System.out.print("Introduce tu telefono: ");
-            String telefono = sc.next();
-            System.out.print("Introduce tu fecha: ");
-            String fechaString = sc.next();
-            LocalDate fecha = LocalDate.parse(fechaString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-            System.out.println("Introduce tu matricula: ");
-            String matricula = sc.next();
+            String nombre = sc.next().trim();
+            do {
+                try {
+                    System.out.print("Introduce tu telefono: ");
+                    telefono = sc.next().trim();
+                    valido = true;
 
-            return new Cliente(manejador.ultimoID(gestionCliente.clientesList) + 1, nombre, telefono, fecha, matricula);
+                } catch (InputMismatchException e) {
+                    System.out.println("ERROR: " + e.getMessage());
+                    valido = false;
+
+                }
+
+            } while (!valido);
+            valido = false;
+            do {
+                try {
+                    System.out.print("Introduce tu fecha: ");
+                    String fechaString = sc.next().trim();
+                    fecha = LocalDate.parse(fechaString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                    valido = true;
+
+                } catch (DateTimeException e) {
+                    System.out.println("ERROR: debe ser \'dd/MM/aaaa\'" + e.getMessage());
+                    valido = false;
+                }
+            } while (!valido);
+            System.out.println("Introduce tu matricula: ");
+            String matricula = sc.next().trim();
+            return new Cliente((manejador.ultimoID(rutaClientes) + 1), nombre, telefono, fecha, matricula);
         } catch (InputMismatchException e) {
             System.out.println("ERROR: " + e.getMessage());
-            sc.nextLine();
+            sc.nextLine().trim();
         }
         return null;
 
@@ -110,7 +140,7 @@ public class Main {
 
         } while (!valido);
         System.out.println("Introduce la fecha: ");
-        String fechaString = sc.next();
+        String fechaString = sc.next().trim();
         fecha = LocalDate.parse(fechaString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         System.out.println("Introudce el importe: ");
         importe = sc.nextDouble();
@@ -119,9 +149,10 @@ public class Main {
         litros = sc.nextDouble();
 
         System.out.println("Introduce el combustible: ");
-        combustible = sc.next();
+        combustible = sc.next().trim();
 
-        return new Pago(manejador.ultimoID(gestionPago.pagolist)+1 ,id_cliente, fecha, importe, litros, combustible);
+
+        return new Pago(manejador.ultimoID(rutaPagos) + 1, id_cliente, fecha, importe, litros, combustible);
     }
 
 
