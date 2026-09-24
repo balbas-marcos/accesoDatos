@@ -9,8 +9,9 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         ILeerEscribir manejadorCliente = new ManejarCSVCliente();
-        ClienteGestion gestionCliente = new ClienteGestion("src/archivosCSV/clientes.csv", manejadorCliente);
-        PagoGestion gestionPago = new PagoGestion("src/pagos.csv", manejador);
+        ILeerEscribir manejadorPago = new ManejarCSVPago();
+        ClienteGestion gestionCliente = new ClienteGestion("Practica1/src/archivosCSV/clientes.csv", manejadorCliente);
+        PagoGestion gestionPago = new PagoGestion("Practica1/src/archivosCSV/pagos.csv", manejadorPago);
 
         byte opcion = -1;
 
@@ -44,7 +45,7 @@ public class Main {
                         System.out.println(gestionCliente.leerporID(id_buscado));
                         break;
                     case 4:
-                        gestionPago.guardar(procesarPago(gestionCliente));
+                        gestionPago.guardar(procesarPago(gestionCliente, gestionPago, manejadorPago));
                         break;
                     case 5:
                         for (Pago p : gestionPago.cargarTodos()) {
@@ -73,7 +74,7 @@ public class Main {
             System.out.println("Introduce tu matricula: ");
             String matricula = sc.next();
 
-            return new Cliente(gestionCliente.ultimoID() + 1, nombre, telefono, fecha, matricula);
+            return new Cliente(manejador.ultimoID(gestionCliente.clientesList) + 1, nombre, telefono, fecha, matricula);
         } catch (InputMismatchException e) {
             System.out.println("ERROR: " + e.getMessage());
             sc.nextLine();
@@ -82,7 +83,7 @@ public class Main {
 
     }
 
-    public static Pago procesarPago(ClienteGestion gestion) {
+    public static Pago procesarPago(ClienteGestion gestionCliente, PagoGestion gestionPago, ILeerEscribir manejador) {
         Scanner sc = new Scanner(System.in);
         boolean valido = false;
         int id_cliente = 0;
@@ -94,7 +95,7 @@ public class Main {
             try {
                 System.out.println("Introduce el ID del cliente: ");
                 id_cliente = sc.nextInt();
-                for (Cliente c : gestion.cargarTodos()) {
+                for (Cliente c : gestionCliente.cargarTodos()) {
                     if (id_cliente == c.getID()) {
                         valido = true;
                     }
@@ -120,7 +121,7 @@ public class Main {
         System.out.println("Introduce el combustible: ");
         combustible = sc.next();
 
-        return new Pago(id_cliente, fecha, importe, litros, combustible);
+        return new Pago(manejador.ultimoID(gestionPago.pagolist)+1 ,id_cliente, fecha, importe, litros, combustible);
     }
 
 

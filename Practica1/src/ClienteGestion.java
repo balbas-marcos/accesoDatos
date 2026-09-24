@@ -13,17 +13,6 @@ public class ClienteGestion implements IGestionDatos<Cliente> {
 
     }
 
-    public int ultimoID() {
-        List<String> lineas = manejador.leer(rutaArchivo);
-
-        if (!lineas.isEmpty()) {
-            String ultimaLinea = lineas.get(lineas.size() - 1);
-            String[] dato_id = ultimaLinea.split(";");
-            return Integer.parseInt(dato_id[0]);
-        } else {
-            return 0;
-        }
-    }
 
     @Override
     public void guardar(Cliente cliente) {
@@ -43,20 +32,9 @@ public class ClienteGestion implements IGestionDatos<Cliente> {
 
     @Override
     public List<Cliente> cargarTodos() {
-        List<String> lineas = manejador.leer(rutaArchivo);
-        for (String linea : lineas) {
-            if (!linea.isBlank()) {
-                //por si alguna linea en blanco saltarla
-                String[] datos = linea.split(";");
-                String id = datos[0];
-                String nombre = datos[1];
-                String telefono = datos[2];
-                LocalDate fecha = LocalDate.parse(datos[3]);
-                String matricula = datos[4];
-                clientesList.add(new Cliente(Integer.parseInt(id), nombre, telefono, fecha, matricula));
-            }
-        }
-        return clientesList;
+        System.out.println("Aqui llego");
+        List<Cliente> lineas = manejador.leer(rutaArchivo);
+        return lineas;
 
     }
 

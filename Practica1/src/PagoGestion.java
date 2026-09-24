@@ -11,6 +11,9 @@ public class PagoGestion implements IGestionDatos<Pago> {
         this.manejador = manejador;
     }
 
+
+
+
     @Override
     public void guardar(Pago pago) {
         pagolist.add(pago);

@@ -1,7 +1,6 @@
 import java.time.LocalDate;
 
 public class Pago {
-    private static byte contador;
     int ID;
     int ID_cliente;
     LocalDate fecha;
@@ -11,8 +10,7 @@ public class Pago {
 
 
 
-
-    public Pago(int ID_cliente, LocalDate fecha, double importe, double litros, String combustible) {
+    public Pago( int ID, int ID_cliente, LocalDate fecha, double importe, double litros, String combustible) {
         if (combustible == null || combustible.isEmpty()) {
             System.out.println("Texto obligatorio, por ejemplo,\n" +
                     "Gasolina 95\n" +
@@ -22,8 +20,9 @@ public class Pago {
         } else {
             this.combustible = combustible;
         }
-        contador++;
-        ID = contador;
+
+
+        this.ID = ID;
         this.ID_cliente = ID_cliente;
 
         if(fecha == null){
