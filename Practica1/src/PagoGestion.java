@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.TreeSet;
 
 public class PagoGestion implements IGestionDatos<Pago> {
     List<Pago> pagolist = new ArrayList<>();
@@ -23,8 +25,8 @@ public class PagoGestion implements IGestionDatos<Pago> {
     @Override
     public List<Pago> cargarTodos() {
         List<Pago> texto = manejador.leer(rutaArchivo);
-        //falta saber como leerlo y añadirlo a la lista de pagoList asi luego podremos buscar por ID
-        return texto;
+        texto.sort(Pago::compareTo);
+        return texto.reversed();
     }
 
     @Override

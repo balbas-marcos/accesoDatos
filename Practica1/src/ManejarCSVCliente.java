@@ -16,7 +16,7 @@ public class ManejarCSVCliente implements ILeerEscribir<Cliente> {
 
     @Override
     public int ultimoID(String ruta) {
-        List<Cliente>clientesActualizados = leer("Practica1/src/archivosCSV/clientes.csv");
+        List<Cliente>clientesActualizados = leer(ruta);
         if (clientesActualizados == null || clientesActualizados.isEmpty()) {
             return 0;
         }
@@ -56,7 +56,6 @@ public class ManejarCSVCliente implements ILeerEscribir<Cliente> {
                     leido.add(new Cliente(Integer.parseInt(id), nombre, telefono, fecha, matricula));
                 }
             }
-            return leido;
         } catch (IOException e) {
             System.out.println("ERROR: " + e.getMessage());
         }
@@ -69,7 +68,7 @@ public class ManejarCSVCliente implements ILeerEscribir<Cliente> {
                 c.getNombre() + "," +
                 c.getTelefono() + "," +
                 c.getFecha() + "," +
-                c.getMatricula().trim();
+                c.getMatricula();
     }
 
 

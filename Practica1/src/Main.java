@@ -2,14 +2,15 @@ import java.time.DateTimeException;
 import java.time.format.DateTimeFormatter;
 import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 import java.time.LocalDate;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-    static String rutaClientes = "Practica1/src/archivosCSV/clientes.csv";
-    static String rutaPagos = "Practica1/src/archivosCSV/pagos.csv";
+    static String rutaClientes = "src/archivosCSV/clientes.csv";
+    static String rutaPagos = "src/archivosCSV/pagos.csv";
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -75,7 +76,7 @@ public class Main {
         boolean valido = false;
         try {
             System.out.print("Introduce tu nombre: ");
-            String nombre = sc.next().trim();
+            String nombre = sc.next().toLowerCase(Locale.ROOT).trim();
             do {
                 try {
                     System.out.print("Introduce tu telefono: ");
@@ -139,9 +140,20 @@ public class Main {
             }
 
         } while (!valido);
-        System.out.println("Introduce la fecha: ");
-        String fechaString = sc.next().trim();
-        fecha = LocalDate.parse(fechaString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        valido = false;
+        do {
+            try {
+                System.out.println("Introduce la fecha: ");
+                String fechaString = sc.next().trim();
+                fecha = LocalDate.parse(fechaString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                valido = true;
+
+            } catch (DateTimeException e) {
+                System.out.println("ERROR: debe ser \'dd/MM/aaaa\'" + e.getMessage());
+            }
+
+        } while (!valido);
+
         System.out.println("Introudce el importe: ");
         importe = sc.nextDouble();
 

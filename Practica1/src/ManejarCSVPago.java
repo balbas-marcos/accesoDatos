@@ -7,6 +7,8 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class ManejarCSVPago implements ILeerEscribir<Pago> {
@@ -16,11 +18,12 @@ public class ManejarCSVPago implements ILeerEscribir<Pago> {
 
     @Override
     public int ultimoID(String ruta) {
-        List<Pago> pagosActualizados = leer(ruta);
-        if (pagosActualizados == null || pagosActualizados.isEmpty()) {
+        List<Pago> clientesActualizados = leer(ruta);
+
+        if (clientesActualizados == null || clientesActualizados.isEmpty()) {
             return 0;
         }
-        Pago ultimoPago = pagosActualizados.get(pagosActualizados.size() - 1);
+        Pago ultimoPago = clientesActualizados.get(clientesActualizados.size() - 1);
         return ultimoPago.getID();
     }
 
@@ -48,7 +51,6 @@ public class ManejarCSVPago implements ILeerEscribir<Pago> {
                 if (!linea.isBlank()) {
                     String[] datos = linea.split(",");
                     leido.add(new Pago(Integer.parseInt(datos[0]), Integer.parseInt(datos[1]), LocalDate.parse(datos[2]), Double.parseDouble(datos[3]), Double.parseDouble(datos[4]), datos[5]));
-
                 }
             }
         } catch (IOException e) {

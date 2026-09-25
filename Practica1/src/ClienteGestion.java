@@ -37,6 +37,7 @@ public class ClienteGestion implements IGestionDatos<Cliente> {
     public List<Cliente> cargarTodos() {
         System.out.println("Aqui llego");
         List<Cliente> lineas = manejador.leer(rutaArchivo);
+        lineas.sort(Cliente::compareTo);
         return lineas;
 
     }

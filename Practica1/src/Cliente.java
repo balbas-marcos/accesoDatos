@@ -1,7 +1,7 @@
 import java.time.LocalDate;
 
 
-public class Cliente {
+public class Cliente implements Comparable<Cliente>{
     int ID = 0;
     String nombre;
     String telefono;
@@ -58,6 +58,14 @@ public class Cliente {
         this.matricula = matricula;
     }
 
+    @Override
+    public int compareTo(Cliente otro) {
+        int resultado = this.nombre.compareTo(otro.nombre);
+        if(resultado == 0){
+            return this.ID;
+        }
+        return resultado;
+    }
 
     @Override
     public String toString() {
