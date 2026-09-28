@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.util.List;
 
 public class Pago implements Comparable<Pago> {
     int ID;
@@ -9,8 +10,7 @@ public class Pago implements Comparable<Pago> {
     String combustible;
 
 
-
-    public Pago( int ID, int ID_cliente, LocalDate fecha, double importe, double litros, String combustible) {
+    public Pago(int ID, int ID_cliente, LocalDate fecha, double importe, double litros, String combustible) {
         if (combustible == null || combustible.isEmpty()) {
             System.out.println("Texto obligatorio, por ejemplo,\n" +
                     "Gasolina 95\n" +
@@ -25,9 +25,9 @@ public class Pago implements Comparable<Pago> {
         this.ID = ID;
         this.ID_cliente = ID_cliente;
 
-        if(fecha == null){
+        if (fecha == null) {
             this.fecha = LocalDate.now();
-        }else{
+        } else {
             this.fecha = fecha;
         }
         this.fecha = fecha;
@@ -95,6 +95,8 @@ public class Pago implements Comparable<Pago> {
         return resultado;
     }
 
+
+    /*
     @Override
     public String toString() {
         return "Pago{" +
@@ -106,4 +108,40 @@ public class Pago implements Comparable<Pago> {
                 ", combustible='" + combustible + '\'' +
                 '}';
     }
+
+     */
+
+
+    @Override
+    public String toString() {
+        return ID + "\t" +
+                ID_cliente + "\t" +
+                fecha + "\t" +
+                importe + "\t" +
+                litros + "\t" +
+                combustible + '\t';
+    }
+
+
+    public String toString_consola(List<Cliente> clientesList) {
+        String nombre = "";
+        for (Cliente c : clientesList) {
+            if (c.getID() == this.ID_cliente) {
+                nombre = c.getNombre().trim();
+                break;
+            }
+        }
+        /*
+        return ID + "\t\t\t" +
+                nombre + "\t\t\t" +
+                fecha + "\t\t" +
+                importe + "\t\t\t" +
+                litros + "\t\t\t" +
+                combustible + '\t';
+                */
+        return String.format("%-8d\t%-20s\t%-12s\t%-10.2f\t%-10.2f\t%s",
+                ID, nombre, fecha, importe, litros, combustible);
+    }
+
+
 }

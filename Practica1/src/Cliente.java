@@ -1,7 +1,8 @@
 import java.time.LocalDate;
+import java.util.Locale;
 
 
-public class Cliente implements Comparable<Cliente>{
+public class Cliente implements Comparable<Cliente> {
     int ID = 0;
     String nombre;
     String telefono;
@@ -60,8 +61,8 @@ public class Cliente implements Comparable<Cliente>{
 
     @Override
     public int compareTo(Cliente otro) {
-        int resultado = this.nombre.compareTo(otro.nombre);
-        if(resultado == 0){
+        int resultado = this.nombre.toLowerCase(Locale.ROOT).compareTo(otro.nombre.toLowerCase(Locale.ROOT));
+        if (resultado == 0) {
             return this.ID;
         }
         return resultado;
@@ -69,13 +70,11 @@ public class Cliente implements Comparable<Cliente>{
 
     @Override
     public String toString() {
-        return "Cliente{" +
-                "ID=" + ID +
-                ", nombre='" + nombre + '\'' +
-                ", telefono='" + telefono + '\'' +
-                ", fecha=" + fecha +
-                ", matricula='" + matricula + '\'' +
-                '}';
+        return ID + '\t' +
+                nombre + '\t' +
+                telefono + '\t' +
+                fecha + '\t' +
+                matricula + '\t';
     }
 
 }

@@ -9,8 +9,8 @@ import java.time.LocalDate;
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-    static String rutaClientes = "src/archivosCSV/clientes.csv";
-    static String rutaPagos = "src/archivosCSV/pagos.csv";
+    static String rutaClientes = "Practica1/src/archivosCSV/clientes.csv";
+    static String rutaPagos = "Practica1/src/archivosCSV/pagos.csv";
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -43,21 +43,26 @@ public class Main {
                         gestionCliente.guardar(cliente);
                         break;
                     case 2:
+                        System.out.println("ID\tNOMBRE\tTELEFONO\tFECHA\tMATRICULA");
                         for (Cliente c : gestionCliente.cargarTodos()) {
-                            System.out.println(c);
+                            System.out.println(c.toString());
                         }
                         break;
                     case 3:
-                        System.out.println("Introduce el ID que buscas: ");
-                        byte id_buscado = sc.nextByte();
-                        System.out.println(gestionCliente.leerporID(id_buscado));
+                        System.out.println("Introduce lo que buscas: ");
+                        String buscado = sc.next();
+                        for (Cliente c : gestionCliente.buscar(buscado)) {
+                            System.out.println(c);
+                        }
                         break;
                     case 4:
                         gestionPago.guardar(procesarPago(gestionCliente, gestionPago, manejadorPago));
                         break;
                     case 5:
+                        System.out.printf("%-8s\t%-20s\t%-12s\t%-10s\t%-10s\t%s%n",
+                                "ID", "NOMBRE", "FECHA", "IMPORTE", "LITROS", "COMBUSTIBLE");
                         for (Pago p : gestionPago.cargarTodos()) {
-                            System.out.println(p);
+                            System.out.println(p.toString_consola(gestionCliente.cargarTodos()));
                         }
                 }
             } catch (InputMismatchException e) {
@@ -124,6 +129,10 @@ public class Main {
         String combustible = null;
         do {
             try {
+                System.out.println("CLIENTES DISPONIBLES");
+                for (Cliente c : gestionCliente.cargarTodos()) {
+                    System.out.println(c);
+                }
                 System.out.println("Introduce el ID del cliente: ");
                 id_cliente = sc.nextInt();
                 for (Cliente c : gestionCliente.cargarTodos()) {
@@ -140,13 +149,20 @@ public class Main {
             }
 
         } while (!valido);
+        sc.nextLine();
         valido = false;
         do {
             try {
-                System.out.println("Introduce la fecha: ");
-                String fechaString = sc.next().trim();
-                fecha = LocalDate.parse(fechaString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-                valido = true;
+                System.out.print("Introduce la fecha: ");
+                String fechaString = sc.nextLine().trim();
+                if (fechaString.isEmpty() || fechaString == null) {
+                    fecha = LocalDate.now();
+                    System.out.println("poniendo fecha de hoy");
+                    valido = true;
+                } else {
+                    fecha = LocalDate.parse(fechaString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                    valido = true;
+                }
 
             } catch (DateTimeException e) {
                 System.out.println("ERROR: debe ser \'dd/MM/aaaa\'" + e.getMessage());
@@ -154,11 +170,31 @@ public class Main {
 
         } while (!valido);
 
-        System.out.println("Introudce el importe: ");
-        importe = sc.nextDouble();
+        valido = false;
+        do {
+            try {
+                System.out.print("Introduce el importe: ");
+                String importeString = sc.next().trim().replace(',', '.');
+                importe = Double.parseDouble(importeString);
+                valido = true;
+            } catch (NumberFormatException e) {
+                System.out.println("ERROR: El importe debe ser un número válido");
+            }
+        } while (!valido);
+        valido = false;
 
-        System.out.println("Introduce los litros: ");
-        litros = sc.nextDouble();
+
+        do {
+            try {
+                System.out.print("Introduce los litros: ");
+                String litrosString = sc.next().trim().replace(',', '.');
+
+                litros = Double.parseDouble(litrosString);
+                valido = true;
+            } catch (NumberFormatException e) {
+                System.out.println("ERROR: los litros debe ser un número válido ");
+            }
+        } while (!valido);
 
         System.out.println("Introduce el combustible: ");
         combustible = sc.next().trim();

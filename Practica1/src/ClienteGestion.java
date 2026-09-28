@@ -1,6 +1,7 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ClienteGestion implements IGestionDatos<Cliente> {
     List<Cliente> clientesList = new ArrayList<>();
@@ -35,7 +36,6 @@ public class ClienteGestion implements IGestionDatos<Cliente> {
 
     @Override
     public List<Cliente> cargarTodos() {
-        System.out.println("Aqui llego");
         List<Cliente> lineas = manejador.leer(rutaArchivo);
         lineas.sort(Cliente::compareTo);
         return lineas;
@@ -52,6 +52,21 @@ public class ClienteGestion implements IGestionDatos<Cliente> {
             }
         }
         return null;
+    }
+
+
+    public List<Cliente> buscar(String texto_buscado) {
+        List<Cliente> lineas = manejador.leer(rutaArchivo);
+        List<Cliente> buscados = new ArrayList<>();
+        for(Cliente c : lineas){
+            if(c.toString().toLowerCase(Locale.ROOT).contains(texto_buscado.toLowerCase(Locale.ROOT))){
+                buscados.add(c);
+            }
+        }
+
+        buscados.sort(Cliente::compareTo);
+        return buscados;
+
     }
 
 
