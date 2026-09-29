@@ -7,13 +7,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class ManejarCSVPago implements ILeerEscribir<Pago> {
-
+    String separador = ",";
     public ManejarCSVPago() {
     }
 
@@ -52,7 +49,7 @@ public class ManejarCSVPago implements ILeerEscribir<Pago> {
             String linea;
             while ((linea = in.readLine()) != null) {
                 if (!linea.isBlank()) {
-                    String[] datos = linea.split(",");
+                    String[] datos = linea.split(separador);
                     leido.add(new Pago(Integer.parseInt(datos[0]), Integer.parseInt(datos[1]), LocalDate.parse(datos[2]), Double.parseDouble(datos[3]), Double.parseDouble(datos[4]), datos[5]));
                 }
             }
@@ -64,11 +61,11 @@ public class ManejarCSVPago implements ILeerEscribir<Pago> {
 
     public String pagoToCSV(Pago p) {
 
-        return p.getID() + "," +
-                p.getID_cliente() + "," +
-                p.getFecha() + "," +
-                p.getImporte() + "," +
-                p.getLitros() + "," +
+        return p.getID() + separador +
+                p.getID_cliente() + separador +
+                p.getFecha() + separador +
+                p.getImporte() + separador +
+                p.getLitros() + separador +
                 p.getCombustible();
     }
 

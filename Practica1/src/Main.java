@@ -89,7 +89,7 @@ public class Main {
                     telefono = sc.next().trim();
                     if (telefono.length() == 9) {
                         valido = true;
-                    } else if (telefono.length()>9) {
+                    } else if (telefono.length() > 9) {
                         System.out.println("El numero no existe, demasiado largo");
                     }
 
@@ -162,7 +162,7 @@ public class Main {
                 String fechaString = sc.nextLine().trim();
                 if (fechaString.isEmpty() || fechaString == null) {
                     fecha = LocalDate.now();
-                    System.out.println("poniendo fecha de hoy");
+                    System.out.println("poniendo fecha de hoy(enter para la fecha de hoy)");
                     valido = true;
                 } else {
                     fecha = LocalDate.parse(fechaString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
@@ -201,8 +201,20 @@ public class Main {
             }
         } while (!valido);
 
-        System.out.println("Introduce el combustible: ");
-        combustible = sc.next().trim();
+        valido = false;
+
+        do {
+            System.out.println("Introduce el combustible(Gasolina 95, 98, Diesel): ");
+            combustible = sc.next().trim();
+            if (!combustible.equalsIgnoreCase("gasolina 95") &&
+                    !combustible.equalsIgnoreCase("gasolina 98") &&
+                    !combustible.equalsIgnoreCase("diesel")) {
+                valido = false;
+                throw new InputMismatchException();
+            } else {
+                valido = true;
+            }
+        } while (!valido);
 
 
         return new Pago(manejador.ultimoID(rutaPagos) + 1, id_cliente, fecha, importe, litros, combustible);

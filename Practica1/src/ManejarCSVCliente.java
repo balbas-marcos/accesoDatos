@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ManejarCSVCliente implements ILeerEscribir<Cliente> {
-
+    String separador = ",";
     public ManejarCSVCliente() {
     }
 
@@ -47,7 +47,7 @@ public class ManejarCSVCliente implements ILeerEscribir<Cliente> {
             while ((linea = in.readLine()) != null) {
                 if (!linea.isBlank()) {
                     //por si alguna linea en blanco saltarla
-                    String[] datos = linea.split(",");
+                    String[] datos = linea.split(separador);
                     String id = datos[0];
                     String nombre = datos[1];
                     String telefono = datos[2];
@@ -64,10 +64,10 @@ public class ManejarCSVCliente implements ILeerEscribir<Cliente> {
 
     public String clienteToCSV(Cliente c) {
 
-        return c.getID() + "," +
-                c.getNombre() + "," +
-                c.getTelefono() + "," +
-                c.getFecha() + "," +
+        return c.getID() + separador +
+                c.getNombre() + separador +
+                c.getTelefono() + separador +
+                c.getFecha() + separador +
                 c.getMatricula();
     }
 
