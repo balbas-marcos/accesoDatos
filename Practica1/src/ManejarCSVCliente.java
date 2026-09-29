@@ -16,8 +16,8 @@ public class ManejarCSVCliente implements ILeerEscribir<Cliente> {
 
     @Override
     public int ultimoID(String ruta) {
-        List<Cliente>clientesActualizados = leer(ruta);
-        if (clientesActualizados == null || clientesActualizados.isEmpty()) {
+        List<Cliente> clientesActualizados = leer(ruta);
+        if (clientesActualizados == null || clientesActualizados.isEmpty() || Files.notExists(Path.of(ruta))) {
             return 0;
         }
         Cliente ultimoCliente = clientesActualizados.get(clientesActualizados.size() - 1);

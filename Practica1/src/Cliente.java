@@ -70,11 +70,8 @@ public class Cliente implements Comparable<Cliente> {
 
     @Override
     public String toString() {
-        return ID + '\t' +
-                nombre + '\t' +
-                telefono + '\t' +
-                fecha + '\t' +
-                matricula + '\t';
+        return String.format("%-8d\t%-15s\t%-12s\t%-13s\t%-15s",
+                ID, nombre, telefono, fecha, matricula);
     }
 
 }

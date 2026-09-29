@@ -9,8 +9,8 @@ import java.time.LocalDate;
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-    static String rutaClientes = "Practica1/src/archivosCSV/clientes.csv";
-    static String rutaPagos = "Practica1/src/archivosCSV/pagos.csv";
+    static String rutaClientes = "src/archivosCSV/clientes.csv";
+    static String rutaPagos = "src/archivosCSV/pagos.csv";
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -43,7 +43,8 @@ public class Main {
                         gestionCliente.guardar(cliente);
                         break;
                     case 2:
-                        System.out.println("ID\tNOMBRE\tTELEFONO\tFECHA\tMATRICULA");
+                        System.out.printf("%-8s\t%-15s\t%-12s\t%-13s\t%s%n",
+                                "ID", "NOMBRE", "TELEFONO", "FECHA", "MATRICULA");
                         for (Cliente c : gestionCliente.cargarTodos()) {
                             System.out.println(c.toString());
                         }
@@ -86,7 +87,11 @@ public class Main {
                 try {
                     System.out.print("Introduce tu telefono: ");
                     telefono = sc.next().trim();
-                    valido = true;
+                    if (telefono.length() == 9) {
+                        valido = true;
+                    } else if (telefono.length()>9) {
+                        System.out.println("El numero no existe, demasiado largo");
+                    }
 
                 } catch (InputMismatchException e) {
                     System.out.println("ERROR: " + e.getMessage());

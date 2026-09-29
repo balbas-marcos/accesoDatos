@@ -1,5 +1,6 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -20,7 +21,7 @@ public class ManejarCSVPago implements ILeerEscribir<Pago> {
     public int ultimoID(String ruta) {
         List<Pago> clientesActualizados = leer(ruta);
 
-        if (clientesActualizados == null || clientesActualizados.isEmpty()) {
+        if (clientesActualizados == null || clientesActualizados.isEmpty()|| Files.notExists(Path.of(ruta))) {
             return 0;
         }
         Pago ultimoPago = clientesActualizados.get(clientesActualizados.size() - 1);
@@ -31,6 +32,8 @@ public class ManejarCSVPago implements ILeerEscribir<Pago> {
     @Override
     public void escribir(String ruta, List<Pago> pagos) {
         Path archivo = Path.of(ruta);
+
+
         try (BufferedWriter out = Files.newBufferedWriter(archivo, StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.APPEND)) {
             for (Pago p : pagos) {
                 out.write(pagoToCSV(p));

@@ -18,7 +18,7 @@ public class ClienteGestion implements IGestionDatos<Cliente> {
     @Override
     public void guardar(Cliente cliente) {
         boolean existe = false;
-        for (Cliente c : clientesList) {
+        for (Cliente c : this.cargarTodos()) {
             if (c.getMatricula().equalsIgnoreCase(cliente.getMatricula())) {
                 existe = true;
                 break;
