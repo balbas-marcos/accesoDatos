@@ -63,7 +63,7 @@ public class Cliente implements Comparable<Cliente> {
     public int compareTo(Cliente otro) {
         int resultado = this.nombre.toLowerCase(Locale.ROOT).compareTo(otro.nombre.toLowerCase(Locale.ROOT));
         if (resultado == 0) {
-            return this.ID;
+            return Integer.compare(this.ID, otro.ID);
         }
         return resultado;
     }

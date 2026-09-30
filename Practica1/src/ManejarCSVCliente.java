@@ -67,7 +67,12 @@ public class ManejarCSVCliente implements ILeerEscribir<Cliente> {
         return c.getID() + separador +
                 c.getNombre() + separador +
                 c.getTelefono() + separador +
-                c.getFecha() + separador +
+                c.getFecha() + separador
+
+
+
+
+                +
                 c.getMatricula();
     }
 

@@ -90,7 +90,7 @@ public class Pago implements Comparable<Pago> {
     public int compareTo(Pago otro) {
         int resultado = this.fecha.compareTo(otro.fecha);
         if (resultado == 0) {
-            return this.ID;
+            return Integer.compare(this.ID, otro.ID);
         }
         return resultado;
     }
