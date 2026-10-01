@@ -30,7 +30,7 @@ public class ManejarCSVCliente implements ILeerEscribir<Cliente> {
         Path archivo = Path.of(ruta);
         try (BufferedWriter out = Files.newBufferedWriter(archivo, StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.APPEND)) {
             for (Cliente c : clientes) {
-                out.write(clienteToCSV(c));
+                out.write(toString_personalizado(c));
                 out.newLine();
             }
         } catch (IOException e) {
@@ -62,17 +62,14 @@ public class ManejarCSVCliente implements ILeerEscribir<Cliente> {
         return leido;
     }
 
-    public String clienteToCSV(Cliente c) {
+
+    @Override
+    public String toString_personalizado(Cliente c) {
 
         return c.getID() + separador +
                 c.getNombre() + separador +
                 c.getTelefono() + separador +
-                c.getFecha() + separador
-
-
-
-
-                +
+                c.getFecha() + separador +
                 c.getMatricula();
     }
 

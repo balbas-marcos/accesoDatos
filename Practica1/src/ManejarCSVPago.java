@@ -33,7 +33,7 @@ public class ManejarCSVPago implements ILeerEscribir<Pago> {
 
         try (BufferedWriter out = Files.newBufferedWriter(archivo, StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.APPEND)) {
             for (Pago p : pagos) {
-                out.write(pagoToCSV(p));
+                out.write(toString_personalizado(p));
                 out.newLine();
             }
         } catch (IOException e) {
@@ -59,7 +59,9 @@ public class ManejarCSVPago implements ILeerEscribir<Pago> {
         return leido;
     }
 
-    public String pagoToCSV(Pago p) {
+
+    @Override
+    public String toString_personalizado(Pago p) {
 
         return p.getID() + separador +
                 p.getID_cliente() + separador +
