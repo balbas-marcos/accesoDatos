@@ -31,7 +31,7 @@ public class ManejarCSVPago implements ILeerEscribir<Pago> {
         Path archivo = Path.of(ruta);
 
 
-        try (BufferedWriter out = Files.newBufferedWriter(archivo, StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.APPEND)) {
+        try (BufferedWriter out = Files.newBufferedWriter(archivo, StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING)) {
             for (Pago p : pagos) {
                 out.write(toString_personalizado(p));
                 out.newLine();

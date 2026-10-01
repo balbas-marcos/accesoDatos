@@ -9,8 +9,8 @@ import java.time.LocalDate;
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-    static String rutaClientes = "src/archivosCSV/clientes.csv";
-    static String rutaPagos = "src/archivosCSV/pagos.csv";
+    static String rutaClientes = "Practica1/src/archivosCSV/clientes.csv";
+    static String rutaPagos = "Practica1/src/archivosCSV/pagos.csv";
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -201,20 +201,11 @@ public class Main {
             }
         } while (!valido);
 
-        valido = false;
+        sc.nextLine();
 
-        do {
-            System.out.println("Introduce el combustible(Gasolina 95, 98, Diesel): ");
-            combustible = sc.next().trim();
-            if (!combustible.equalsIgnoreCase("gasolina 95") &&
-                    !combustible.equalsIgnoreCase("gasolina 98") &&
-                    !combustible.equalsIgnoreCase("diesel")) {
-                valido = false;
-                throw new InputMismatchException();
-            } else {
-                valido = true;
-            }
-        } while (!valido);
+
+        System.out.println("Introduce el combustible(Gasolina 95, 98, Diesel): ");
+        combustible = sc.nextLine();
 
 
         return new Pago(manejador.ultimoID(rutaPagos) + 1, id_cliente, fecha, importe, litros, combustible);
