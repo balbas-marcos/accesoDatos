@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="64acd5c6-dce6-44d5-b432-7e00bc05217d" name="Changes" comment="falta poner la cabecera">
-      <change afterPath="$PROJECT_DIR$/Practica1/src/archivosCSV/clientes.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Practica1/src/archivosCSV/pagos.csv" afterDir="false" />
+    <list default="true" id="64acd5c6-dce6-44d5-b432-7e00bc05217d" name="Changes" comment="Trabajo terminado">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Practica1/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Practica1/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Practica1/src/ManejarCSVPago.java" beforeDir="false" afterPath="$PROJECT_DIR$/Practica1/src/ManejarCSVPago.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Practica1/src/ManejarJsonPago.java" beforeDir="false" afterPath="$PROJECT_DIR$/Practica1/src/ManejarJsonPago.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Practica1/src/archivosJson/pagos.json" beforeDir="false" afterPath="$PROJECT_DIR$/Practica1/src/archivosJson/pagos.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,22 +46,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/Marcos/DAM-SEGUNDO/repositorios/accesoDatos/Practica1/src/archivosCSV&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "practica2-json",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "E:/Marcos/DAM-SEGUNDO/repositorios/accesoDatos/Practica1/src/archivosCSV",
+    "nodejs_package_manager_path": "npm",
+    "to.speed.mode.migration.done": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\Marcos\DAM-SEGUNDO\repositorios\accesoDatos\Practica1\src\archivosCSV" />
@@ -148,7 +147,15 @@
       <option name="project" value="LOCAL" />
       <updated>1790628839960</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Trabajo terminado">
+      <option name="closed" value="true" />
+      <created>1790877127343</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1790877127343</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -161,6 +168,7 @@
     <MESSAGE value="cambio de forma de leer" />
     <MESSAGE value="falta controlar los datos al dar de alta al cliente" />
     <MESSAGE value="falta poner la cabecera" />
-    <option name="LAST_COMMIT_MESSAGE" value="falta poner la cabecera" />
+    <MESSAGE value="Trabajo terminado" />
+    <option name="LAST_COMMIT_MESSAGE" value="Trabajo terminado" />
   </component>
 </project>

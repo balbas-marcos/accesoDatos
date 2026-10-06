@@ -9,8 +9,8 @@ import java.time.LocalDate;
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-    static String rutaClientes = "src/archivosJson/clientes.json";
-    static String rutaPagos = "src/archivosJson/pagos.json";
+    static String rutaClientes = "Practica1/src/archivosJson/clientes.json";
+    static String rutaPagos = "Practica1/src/archivosJson/pagos.json";
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);

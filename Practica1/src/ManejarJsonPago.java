@@ -28,16 +28,36 @@ public class ManejarJsonPago implements ILeerEscribir<Pago> {
     @Override
     public void escribir(String ruta, List<Pago> pagos) {
         Path archivo = Path.of(ruta);
-
-
+        pagos.addAll(leer(ruta));
+        pagos.sort(Pago :: compareTo);
         try (BufferedWriter out = Files.newBufferedWriter(archivo, StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING)) {
+            out.write("{");
+            out.newLine();
+            out.write("\t[");
+            out.newLine();
+
+            int contador = 0;
             for (Pago p : pagos) {
                 out.write(toString_personalizado(p));
+                contador++;
+
+                if (contador < pagos.size()) {
+                    out.write(",");
+                }
+
                 out.newLine();
             }
+
+            out.newLine();
+            out.write("\t]");
+            out.newLine();
+            out.write("}");
+            pagos.clear();
+
         } catch (IOException e) {
             System.out.println("ERROR: " + e.getMessage());
         }
+
     }
 
     @Override
@@ -46,8 +66,10 @@ public class ManejarJsonPago implements ILeerEscribir<Pago> {
         Path archivo = Path.of(ruta);
         try (BufferedReader in = Files.newBufferedReader(archivo, StandardCharsets.UTF_8)) {
             String linea;
+            in.readLine();
+            in.readLine();
             while ((linea = in.readLine()) != null) {
-                if (!linea.isBlank()) {
+                if (!linea.isBlank() && !linea.trim().equals("]") && !linea.trim().equals("}")) {
                     String[] datos_enteros = linea.split(",");
                     String[] datos_separados = new String[datos_enteros.length];
                     List<String> datosList = new ArrayList<>();
@@ -57,8 +79,8 @@ public class ManejarJsonPago implements ILeerEscribir<Pago> {
                         datosList.add(datos_separados[0]);
                         //System.out.println(datos_semi_separados[1]);
                     }
-                    String[] datos_final = datosList.toArray(new String[5]);
-                    leido.add(new Pago(Integer.parseInt(datos_final[0].replace("\"", "").trim()), Integer.parseInt(datos_final[1].replace("\"","").trim()), LocalDate.parse(datos_final[2].replace("\"","").trim()), Double.parseDouble(datos_final[3].replace("\"","").trim()), Double.parseDouble(datos_final[4].replace("\"","").trim()), datos_final[5].replace("\"","").replace("}","").trim()));
+                    String[] datos_final = datosList.toArray(new String[6]);
+                    leido.add(new Pago(Integer.parseInt(datos_final[0].replace("\"", "").trim()), Integer.parseInt(datos_final[1].replace("\"","").trim()), LocalDate.parse(datos_final[2].replace("\"","").trim()), Double.parseDouble(datos_final[3].replace("\"","").trim()), Double.parseDouble(datos_final[4].replace("\"","").trim()), datos_final[5].replace("\"","").replace("}","").replace(",","").trim()));
                 }
             }
         } catch (IOException e) {
