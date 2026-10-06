@@ -17,7 +17,7 @@ public class ManejarJsonPago implements ILeerEscribir<Pago> {
     public int ultimoID(String ruta) {
         List<Pago> clientesActualizados = leer(ruta);
 
-        if (clientesActualizados == null || clientesActualizados.isEmpty()|| Files.notExists(Path.of(ruta))) {
+        if (clientesActualizados == null || clientesActualizados.isEmpty() || Files.notExists(Path.of(ruta))) {
             return 0;
         }
         Pago ultimoPago = clientesActualizados.get(clientesActualizados.size() - 1);
@@ -48,8 +48,17 @@ public class ManejarJsonPago implements ILeerEscribir<Pago> {
             String linea;
             while ((linea = in.readLine()) != null) {
                 if (!linea.isBlank()) {
-                    String[] datos = linea.split(":");
-                    leido.add(new Pago(Integer.parseInt(datos[0]), Integer.parseInt(datos[1]), LocalDate.parse(datos[2]), Double.parseDouble(datos[3]), Double.parseDouble(datos[4]), datos[5]));
+                    String[] datos_enteros = linea.split(",");
+                    String[] datos_separados = new String[datos_enteros.length];
+                    List<String> datosList = new ArrayList<>();
+                    for (int i = 0; i < datos_enteros.length; i++) {
+                        datos_separados = datos_enteros[i].split(":");
+                        datos_separados = datos_separados[1].split(", \"");
+                        datosList.add(datos_separados[0]);
+                        //System.out.println(datos_semi_separados[1]);
+                    }
+                    String[] datos_final = datosList.toArray(new String[5]);
+                    leido.add(new Pago(Integer.parseInt(datos_final[0].replace("\"", "").trim()), Integer.parseInt(datos_final[1].replace("\"","").trim()), LocalDate.parse(datos_final[2].replace("\"","").trim()), Double.parseDouble(datos_final[3].replace("\"","").trim()), Double.parseDouble(datos_final[4].replace("\"","").trim()), datos_final[5].replace("\"","").replace("}","").trim()));
                 }
             }
         } catch (IOException e) {
@@ -59,10 +68,8 @@ public class ManejarJsonPago implements ILeerEscribir<Pago> {
     }
 
 
-
-
     @Override
     public String toString_personalizado(Pago p) {
-        return "\t\t{\"id\": "+p.getID()+",\"nombre\": \""+p.getID_cliente()+"\",\"fecha\": \""+p.getFecha()+"\",\"importe\": \""+p.getImporte()+"\", \"litros\": \""+p.getLitros()+"\", \"combustible\": \""+p.getCombustible()+"\"}";
+        return "\t\t{\"id\": " + p.getID() + ",\"nombre\": \"" + p.getID_cliente() + "\",\"fecha\": \"" + p.getFecha() + "\",\"importe\": \"" + p.getImporte() + "\", \"litros\": \"" + p.getLitros() + "\", \"combustible\": \"" + p.getCombustible() + "\"}";
     }
 }

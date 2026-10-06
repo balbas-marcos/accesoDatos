@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -50,23 +51,21 @@ public class ManejarJsonCliente implements ILeerEscribir<Cliente> {
                 if (!linea.isBlank()) {
                     //por si alguna linea en blanco saltarla
                     String[] datos_enteros = linea.split(",");
-                    String[] datos_semi_separados = new String[datos_enteros.length];
-                    String[] datos = new String[datos_enteros.length];
-                    //String[] datosFinal = new String[datos_enteros.length];
+                    String[] datos_separados = new String[datos_enteros.length];
+                    List<String> datosList = new ArrayList<>();
                     for (int i = 0; i < datos_enteros.length; i++) {
-                        datos_semi_separados = datos_enteros[i].split(":");
-                        datos = datos_semi_separados[1].split(", \"");
-
+                        datos_separados = datos_enteros[i].split(":");
+                        datos_separados = datos_separados[1].split(", \"");
+                        datosList.add(datos_separados[0]);
                         //System.out.println(datos_semi_separados[1]);
-                        System.out.println(Arrays.toString(datos));
                     }
+                    String[] datos_final = datosList.toArray(new String[5]);
 
-                    String id = datos[0];
-                    String nombre = datos[1];
-                    String telefono = datos[2];
-                    //LocalDate fecha = LocalDate.parse(datos[3]);
-                    LocalDate fecha = LocalDate.parse("2007-08-14");
-                    String matricula = datos[3];
+                    String id = datos_final[0].trim();
+                    String nombre = datos_final[1].replace("\"","").trim();
+                    String telefono = datos_final[2].replace("\"","").trim();
+                    LocalDate fecha = LocalDate.parse(datos_final[3].replace("\"","").trim());
+                    String matricula = datos_final[4].replace("\"","").replace("}","").trim();
                     leido.add(new Cliente(Integer.parseInt(id), nombre, telefono, fecha, matricula));
                 }
             }
