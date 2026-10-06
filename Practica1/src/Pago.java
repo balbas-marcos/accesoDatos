@@ -96,6 +96,11 @@ public class Pago implements Comparable<Pago> {
     }
 
 
+    public int compareID(Pago otro) {
+        return Integer.compare(otro.ID, this.ID);
+    }
+
+
     /*
     @Override
     public String toString() {

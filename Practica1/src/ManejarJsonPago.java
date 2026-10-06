@@ -20,7 +20,7 @@ public class ManejarJsonPago implements ILeerEscribir<Pago> {
         if (clientesActualizados == null || clientesActualizados.isEmpty() || Files.notExists(Path.of(ruta))) {
             return 0;
         }
-        Pago ultimoPago = clientesActualizados.get(clientesActualizados.size() - 1);
+        Pago ultimoPago = clientesActualizados.get(0);
         return ultimoPago.getID();
     }
 
@@ -29,7 +29,7 @@ public class ManejarJsonPago implements ILeerEscribir<Pago> {
     public void escribir(String ruta, List<Pago> pagos) {
         Path archivo = Path.of(ruta);
         pagos.addAll(leer(ruta));
-        pagos.sort(Pago :: compareTo);
+        pagos.sort(Pago :: compareID);
         try (BufferedWriter out = Files.newBufferedWriter(archivo, StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING)) {
             out.write("{");
             out.newLine();

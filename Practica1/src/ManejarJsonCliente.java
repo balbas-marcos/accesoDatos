@@ -23,7 +23,7 @@ public class ManejarJsonCliente implements ILeerEscribir<Cliente> {
         if (clientesActualizados == null || clientesActualizados.isEmpty() || Files.notExists(Path.of(ruta))) {
             return 0;
         }
-        Cliente ultimoCliente = clientesActualizados.get(clientesActualizados.size() - 1);
+        Cliente ultimoCliente = clientesActualizados.get(0);
         return ultimoCliente.getID();
     }
 
@@ -31,11 +31,31 @@ public class ManejarJsonCliente implements ILeerEscribir<Cliente> {
     @Override
     public void escribir(String ruta, List<Cliente> clientes) {
         Path archivo = Path.of(ruta);
-        try (BufferedWriter out = Files.newBufferedWriter(archivo, StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.APPEND)) {
+        clientes.sort(Cliente :: compareID);
+        clientes.addAll(leer(ruta));
+        try (BufferedWriter out = Files.newBufferedWriter(archivo, StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING)) {
+            out.write("{");
+            out.newLine();
+            out.write("\t[");
+            out.newLine();
+
+            int contador = 0;
             for (Cliente c : clientes) {
                 out.write(toString_personalizado(c));
+                contador++;
+
+                if (contador < clientes.size()) {
+                    out.write(",");
+                }
                 out.newLine();
+
             }
+            out.newLine();
+            out.write("\t]");
+            out.newLine();
+            out.write("}");
+            clientes.clear();
+
         } catch (IOException e) {
             System.out.println("ERROR: " + e.getMessage());
         }
@@ -47,7 +67,9 @@ public class ManejarJsonCliente implements ILeerEscribir<Cliente> {
         Path archivo = Path.of(ruta);
         try (BufferedReader in = Files.newBufferedReader(archivo, StandardCharsets.UTF_8)) {
             String linea;
-            while ((linea = in.readLine()) != null) {
+            in.readLine();
+            in.readLine();
+            while ((linea = in.readLine()) != null && !linea.trim().equals("]") && !linea.trim().equals("}")) {
                 if (!linea.isBlank()) {
                     //por si alguna linea en blanco saltarla
                     String[] datos_enteros = linea.split(",");
@@ -65,7 +87,7 @@ public class ManejarJsonCliente implements ILeerEscribir<Cliente> {
                     String nombre = datos_final[1].replace("\"","").trim();
                     String telefono = datos_final[2].replace("\"","").trim();
                     LocalDate fecha = LocalDate.parse(datos_final[3].replace("\"","").trim());
-                    String matricula = datos_final[4].replace("\"","").replace("}","").trim();
+                    String matricula = datos_final[4].replace("\"", "").replace("}", "").replace(",", "").trim();
                     leido.add(new Cliente(Integer.parseInt(id), nombre, telefono, fecha, matricula));
                 }
             }

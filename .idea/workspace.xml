@@ -4,10 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="64acd5c6-dce6-44d5-b432-7e00bc05217d" name="Changes" comment="Trabajo terminado">
+    <list default="true" id="64acd5c6-dce6-44d5-b432-7e00bc05217d" name="Changes" comment="solucionado los fallos de ManejarJsonPago">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Practica1/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Practica1/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Practica1/src/Cliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/Practica1/src/Cliente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Practica1/src/ManejarJsonCliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/Practica1/src/ManejarJsonCliente.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Practica1/src/ManejarJsonPago.java" beforeDir="false" afterPath="$PROJECT_DIR$/Practica1/src/ManejarJsonPago.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Practica1/src/Pago.java" beforeDir="false" afterPath="$PROJECT_DIR$/Practica1/src/Pago.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Practica1/src/archivosJson/clientes.json" beforeDir="false" afterPath="$PROJECT_DIR$/Practica1/src/archivosJson/clientes.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Practica1/src/archivosJson/pagos.json" beforeDir="false" afterPath="$PROJECT_DIR$/Practica1/src/archivosJson/pagos.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -155,7 +158,15 @@
       <option name="project" value="LOCAL" />
       <updated>1790877127343</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="solucionado los fallos de ManejarJsonPago">
+      <option name="closed" value="true" />
+      <created>1791300772751</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1791300772751</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -169,6 +180,7 @@
     <MESSAGE value="falta controlar los datos al dar de alta al cliente" />
     <MESSAGE value="falta poner la cabecera" />
     <MESSAGE value="Trabajo terminado" />
-    <option name="LAST_COMMIT_MESSAGE" value="Trabajo terminado" />
+    <MESSAGE value="solucionado los fallos de ManejarJsonPago" />
+    <option name="LAST_COMMIT_MESSAGE" value="solucionado los fallos de ManejarJsonPago" />
   </component>
 </project>

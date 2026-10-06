@@ -59,6 +59,13 @@ public class Cliente implements Comparable<Cliente> {
         this.matricula = matricula;
     }
 
+
+
+    public int compareID(Cliente otro) {
+        return Integer.compare(otro.ID, this.ID);
+    }
+
+
     @Override
     public int compareTo(Cliente otro) {
         int resultado = this.nombre.toLowerCase(Locale.ROOT).compareTo(otro.nombre.toLowerCase(Locale.ROOT));
