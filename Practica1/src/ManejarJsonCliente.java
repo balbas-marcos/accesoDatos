@@ -36,6 +36,8 @@ public class ManejarJsonCliente implements ILeerEscribir<Cliente> {
         try (BufferedWriter out = Files.newBufferedWriter(archivo, StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING)) {
             out.write("{");
             out.newLine();
+            out.write("\t\"clientes\":");
+            out.newLine();
             out.write("\t[");
             out.newLine();
 
@@ -67,6 +69,7 @@ public class ManejarJsonCliente implements ILeerEscribir<Cliente> {
         Path archivo = Path.of(ruta);
         try (BufferedReader in = Files.newBufferedReader(archivo, StandardCharsets.UTF_8)) {
             String linea;
+            in.readLine();
             in.readLine();
             in.readLine();
             while ((linea = in.readLine()) != null && !linea.trim().equals("]") && !linea.trim().equals("}")) {

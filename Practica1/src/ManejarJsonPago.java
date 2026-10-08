@@ -33,6 +33,8 @@ public class ManejarJsonPago implements ILeerEscribir<Pago> {
         try (BufferedWriter out = Files.newBufferedWriter(archivo, StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING)) {
             out.write("{");
             out.newLine();
+            out.write("\t\"pagos\"");
+            out.newLine();
             out.write("\t[");
             out.newLine();
 
@@ -66,6 +68,7 @@ public class ManejarJsonPago implements ILeerEscribir<Pago> {
         Path archivo = Path.of(ruta);
         try (BufferedReader in = Files.newBufferedReader(archivo, StandardCharsets.UTF_8)) {
             String linea;
+            in.readLine();
             in.readLine();
             in.readLine();
             while ((linea = in.readLine()) != null) {

@@ -11,7 +11,10 @@ import java.time.LocalDate;
 public class Main {
     static String rutaClientes = "src/archivosJson/clientes.json";
     static String rutaPagos = "src/archivosJson/pagos.json";
-
+    static String rutaMigrarClienteCSV = "src/archivosCSV/clientes.csv";
+    static String rutaMigrarClienteJson = "src/archivosJson/clientes.json";
+    static String rutaMigrarPagoCSV = "src/archivosCSV/pagos.csv";
+    static String rutaMigrarPagoJson = "src/archivosJson/pagos.json";
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -20,6 +23,10 @@ public class Main {
         ILeerEscribir manejadorPago = new ManejarJsonPago();
         ClienteGestion gestionCliente = new ClienteGestion(rutaClientes, manejadorCliente);
         PagoGestion gestionPago = new PagoGestion(rutaPagos, manejadorPago);
+
+        MigraCSVToJson migrador = new MigraCSVToJson();
+        migrador.migrarClientes(rutaMigrarClienteCSV, rutaMigrarClienteJson);
+        migrador.migrarPagos(rutaMigrarPagoCSV, rutaMigrarPagoJson);
 
         byte opcion = -1;
 

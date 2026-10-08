@@ -1,9 +1,8 @@
 {
+	"pagos"
 	[
-
-		{"id": 3,"nombre": "1","fecha": "2026-10-06","importe": "234.0", "litros": "21.0", "combustible": "Gasolina 95"},
-		{"id": 2,"nombre": "1","fecha": "2026-10-06","importe": "4213.0", "litros": "456.0", "combustible": "Gasolina 98"},
-		{"id": 1,"nombre": "1","fecha": "2020-10-06","importe": "324325.0", "litros": "2134234.0", "combustible": "Diesel"}
+		{"id": 2,"nombre": "3","fecha": "2026-10-01","importe": "3245.0", "litros": "123.0", "combustible": "Gasolina 98"},
+		{"id": 1,"nombre": "1","fecha": "2026-10-01","importe": "345.0", "litros": "34214.0", "combustible": "Diesel"}
 
 	]
 }
