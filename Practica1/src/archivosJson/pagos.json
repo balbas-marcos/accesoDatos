@@ -1,5 +1,5 @@
 {
-	"pagos"
+	"pagos":
 	[
 		{"id": 2,"nombre": "3","fecha": "2026-10-01","importe": "3245.0", "litros": "123.0", "combustible": "Gasolina 98"},
 		{"id": 1,"nombre": "1","fecha": "2026-10-01","importe": "345.0", "litros": "34214.0", "combustible": "Diesel"}

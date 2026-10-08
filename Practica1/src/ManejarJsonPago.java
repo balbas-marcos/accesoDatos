@@ -33,7 +33,7 @@ public class ManejarJsonPago implements ILeerEscribir<Pago> {
         try (BufferedWriter out = Files.newBufferedWriter(archivo, StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING)) {
             out.write("{");
             out.newLine();
-            out.write("\t\"pagos\"");
+            out.write("\t\"pagos:\"");
             out.newLine();
             out.write("\t[");
             out.newLine();
