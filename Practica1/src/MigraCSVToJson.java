@@ -1,5 +1,9 @@
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.Scanner;
 
 public class MigraCSVToJson {
 
@@ -17,51 +21,51 @@ public class MigraCSVToJson {
     }
 
     public void migrarClientes(String rutaCSV, String rutaJson) {
+        Scanner sc = new Scanner(System.in);
         List<Cliente> clientes_CSV = manejarCSVCliente.leer(rutaCSV);
-        List<Cliente> clientes_Json = manejarJsonCliente.leer(rutaJson);
         List<Cliente> clientes_agregar = new ArrayList<>();
-        for (Cliente c1 : clientes_CSV) {
-            boolean existe = false;
-            for (Cliente c2 : clientes_Json) {
-                if (c1.getID() == c2.getID()) {
-                    existe = true;
-                    break;
-                }
-            }
-            if(!existe){
-                clientes_agregar.add(c1);
-            }
-        }
 
-        if (clientes_agregar != null && !clientes_agregar.isEmpty()) {
-            manejarJsonCliente.escribir(rutaJson, clientes_agregar);
+        if (!Files.exists(Path.of(rutaJson))) {
+            System.out.println("¿Quieres migrar el fichero Clietes.csv?(Si, No):");
+            String respuesta = sc.next().toLowerCase(Locale.ROOT).trim();
+            if (respuesta.equalsIgnoreCase("Si")) {
+                for (Cliente c1 : clientes_CSV) {
+                    clientes_agregar.add(c1);
+                }
+                manejarJsonCliente.escribir(rutaJson, clientes_agregar);
+                System.out.println("Migración con éxito");
+            }else{
+                System.out.println("migracion cancelada");
+            }
+
         } else {
             System.out.println("No hay clientes en el archivo CSV para migrar");
         }
     }
 
 
-
     public void migrarPagos(String rutaCSV, String rutaJson) {
+        Scanner sc = new Scanner(System.in);
+
         List<Pago> pagos_CSV = manejarCSVPago.leer(rutaCSV);
         List<Pago> pagos_Json = manejarJsonPago.leer(rutaJson);
         List<Pago> pagos_agregar = new ArrayList<>();
-        for (Pago p1 : pagos_CSV) {
-            boolean existe = false;
-            for (Pago p2 : pagos_Json) {
-                if (p1.getID() == p2.getID()) {
-                    existe = true;
-                    break;
-                }
-            }
-            if(!existe){
-                pagos_agregar.add(p1);
-            }
-        }
 
-        if (pagos_agregar != null && !pagos_agregar.isEmpty()) {
-            manejarJsonPago.escribir(rutaJson, pagos_agregar);
-        } else {
+        if (!Files.exists(Path.of(rutaJson))) {
+            System.out.println("¿Quieres migrar el fichero Pagos.csv?(Si, No):");
+            String respuesta = sc.next().toLowerCase(Locale.ROOT).trim();
+            if (respuesta.equalsIgnoreCase("Si")) {
+                for (Pago p1 : pagos_CSV) {
+                    pagos_agregar.add(p1);
+                }
+                manejarJsonPago.escribir(rutaJson, pagos_agregar);
+                System.out.println("Migración con éxito");
+
+            } else {
+                System.out.println("migracion cancelada");
+            }
+
+        }else {
             System.out.println("No hay pagos en el archivo CSV para migrar");
         }
     }
