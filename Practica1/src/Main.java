@@ -17,10 +17,10 @@ public class Main {
     static String rutaMigrarPagoJson = "src/archivosJson/pagos.json";
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        ManejarMySQL.inicializarBaseDatos();
 
-
-        ILeerEscribir manejadorCliente = new ManejarJsonCliente();
-        ILeerEscribir manejadorPago = new ManejarJsonPago();
+        ILeerEscribir manejadorCliente = new ManejarMySQLCliente();
+        ILeerEscribir manejadorPago = new ManejarMySQLPago();
         ClienteGestion gestionCliente = new ClienteGestion(rutaClientes, manejadorCliente);
         PagoGestion gestionPago = new PagoGestion(rutaPagos, manejadorPago);
 
