@@ -1,43 +1,35 @@
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.TreeSet;
 
-public class PagoGestion implements IGestionDatos<Pago> {
-    List<Pago> pagolist = new ArrayList<>();
-    private String rutaArchivo;
-    private ILeerEscribir manejador;
+public class PagoGestion implements ILeerEscribir<Pago> {
+    ILeerEscribir manejador;
 
-    public PagoGestion(String rutaArchivo, ILeerEscribir manejador) {
-        this.rutaArchivo = rutaArchivo;
+    public PagoGestion(ILeerEscribir manejador) {
         this.manejador = manejador;
     }
 
-
     @Override
     public void guardar(Pago pago) {
-
-        pagolist.add(pago);
-        manejador.escribir(rutaArchivo, pagolist);
-
+        manejador.guardar(pago);
     }
 
     @Override
     public List<Pago> cargarTodos() {
-        List<Pago> texto = manejador.leer(rutaArchivo);
-        texto.sort(Pago::compareTo);
-        return texto.reversed();
+        return manejador.cargarTodos();
     }
 
     @Override
-    public Pago leerporID(byte id) {
-        for (Pago p : pagolist) {
-            if (p.getID() == id) {
-                return p;
-            } else {
-                System.out.println("Cliente con ID: " + id + " no encontrado");
+    public <T> void ultimoID(T elemento) {
+
+    }
+
+    public byte ultimoID() {
+        int id_max = 0;
+        List<Cliente> clientes = manejador.cargarTodos();
+        for (Cliente c : clientes) {
+            if (c.getID() >= id_max) {
+                id_max = c.getID();
             }
         }
-        return null;
+        return (byte) id_max;
     }
 }

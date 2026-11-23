@@ -1,62 +1,44 @@
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class ClienteGestion implements IGestionDatos<Cliente> {
-    List<Cliente> clientesList = new ArrayList<>();
-    private String rutaArchivo;
-    private ILeerEscribir manejador;
+public class ClienteGestion implements ILeerEscribir<Cliente>{
 
-    public ClienteGestion(String rutaArchivo, ILeerEscribir manejador) {
-        this.rutaArchivo = rutaArchivo;
+    ILeerEscribir manejador;
+
+    public ClienteGestion(ILeerEscribir manejador){
         this.manejador = manejador;
-
     }
-
 
     @Override
     public void guardar(Cliente cliente) {
-        boolean existe = false;
-        for (Cliente c : this.cargarTodos()) {
-            if (c.getMatricula().equalsIgnoreCase(cliente.getMatricula())) {
-                existe = true;
-                break;
-            }
-        }
-        if (!existe) {
-            clientesList.add(cliente);
-            System.out.println(cliente);
-            manejador.escribir(rutaArchivo, clientesList);
-            System.out.println("La ha mandado a manejarCSV");
-        } else {
-            System.out.println("ERROR: Esa matricula ya esta registrada");
-        }
+        manejador.guardar(cliente);
     }
 
     @Override
     public List<Cliente> cargarTodos() {
-        List<Cliente> lineas = manejador.leer(rutaArchivo);
-        lineas.sort(Cliente::compareTo);
-        return lineas;
-
+        return manejador.cargarTodos();
     }
 
     @Override
-    public Cliente leerporID(byte id) {
-        for (Cliente c : clientesList) {
-            if (c.getID() == id) {
-                return c;
-            } else {
-                System.out.println("Cliente con ID: " + id + " no encontrado");
+    public <T> void ultimoID(T elemento) {
+
+    }
+
+    public byte ultimoID() {
+        int id_max = 0;
+        List<Cliente> clientes = manejador.cargarTodos();
+        for(Cliente c :clientes){
+            if(c.getID() >= id_max){
+                id_max = c.getID();
             }
         }
-        return null;
+        return (byte) id_max;
     }
 
 
     public List<Cliente> buscar(String texto_buscado) {
-        List<Cliente> lineas = manejador.leer(rutaArchivo);
+        List<Cliente> lineas = this.cargarTodos();
         List<Cliente> buscados = new ArrayList<>();
         for(Cliente c : lineas){
             if(c.toString().toLowerCase(Locale.ROOT).contains(texto_buscado.toLowerCase(Locale.ROOT))){
@@ -68,6 +50,4 @@ public class ClienteGestion implements IGestionDatos<Cliente> {
         return buscados;
 
     }
-
-
 }

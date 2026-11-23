@@ -3,19 +3,16 @@ import java.util.Locale;
 
 
 public class Cliente implements Comparable<Cliente> {
-    int ID = 0;
+    byte ID = 0;
     String nombre;
     String telefono;
-    LocalDate fecha;
     String matricula;
 
 
-    public Cliente(int ID, String nombre, String telefono, LocalDate fecha, String matricula) {
+    public Cliente(byte ID, String nombre, String telefono, String matricula) {
         this.ID = ID;
         this.nombre = nombre.trim();
         this.telefono = telefono.trim();
-        this.fecha = fecha;
-        this.matricula = matricula.toUpperCase().trim();
     }
 
 
@@ -23,7 +20,7 @@ public class Cliente implements Comparable<Cliente> {
         return ID;
     }
 
-    public void setID(int ID) {
+    public void setID(byte ID) {
         this.ID = ID;
     }
 
@@ -41,14 +38,6 @@ public class Cliente implements Comparable<Cliente> {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
-    }
-
-    public LocalDate getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
     }
 
     public String getMatricula() {
@@ -78,7 +67,7 @@ public class Cliente implements Comparable<Cliente> {
     @Override
     public String toString() {
         return String.format("%-8d\t%-15s\t%-12s\t%-13s\t%-15s",
-                ID, nombre, telefono, fecha, matricula);
+                ID, nombre, telefono, matricula);
     }
 
 }

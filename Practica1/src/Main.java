@@ -19,10 +19,10 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         ManejarMySQL.inicializarBaseDatos();
 
-        ILeerEscribir manejadorCliente = new ManejarMySQLCliente();
-        ILeerEscribir manejadorPago = new ManejarMySQLPago();
-        ClienteGestion gestionCliente = new ClienteGestion(rutaClientes, manejadorCliente);
-        PagoGestion gestionPago = new PagoGestion(rutaPagos, manejadorPago);
+        ILeerEscribir manejadorClientes = new ManejarJsonCliente("src/archivosJson");
+        ILeerEscribir manejadorPagos = new ManejarJsonPago("src/archivosJson");
+        ClienteGestion clienteGestion = new ClienteGestion(manejadorClientes);
+        PagoGestion pagoGestion = new PagoGestion(manejadorPagos);
 
         MigraCSVToJson migrador = new MigraCSVToJson();
         migrador.migrarClientes(rutaMigrarClienteCSV, rutaMigrarClienteJson);
@@ -46,31 +46,31 @@ public class Main {
                 opcion = sc.nextByte();
                 switch (opcion) {
                     case 1:
-                        Cliente cliente = altaCliente(gestionCliente, manejadorCliente);
-                        gestionCliente.guardar(cliente);
+                        Cliente cliente = altaCliente(clienteGestion);
+                        clienteGestion.guardar(cliente);
                         break;
                     case 2:
                         System.out.printf("%-8s\t%-15s\t%-12s\t%-13s\t%s%n",
                                 "ID", "NOMBRE", "TELEFONO", "FECHA", "MATRICULA");
-                        for (Cliente c : gestionCliente.cargarTodos()) {
+                        for (Cliente c : clienteGestion.cargarTodos()) {
                             System.out.println(c.toString());
                         }
                         break;
                     case 3:
                         System.out.println("Introduce lo que buscas: ");
                         String buscado = sc.next();
-                        for (Cliente c : gestionCliente.buscar(buscado)) {
+                        for (Cliente c : clienteGestion.buscar(buscado)) {
                             System.out.println(c);
                         }
                         break;
                     case 4:
-                        gestionPago.guardar(procesarPago(gestionCliente, gestionPago, manejadorPago));
+                        pagoGestion.guardar(procesarPago(clienteGestion, pagoGestion));
                         break;
                     case 5:
                         System.out.printf("%-8s\t%-20s\t%-12s\t%-10s\t%-10s\t%s%n",
                                 "ID", "NOMBRE", "FECHA", "IMPORTE", "LITROS", "COMBUSTIBLE");
-                        for (Pago p : gestionPago.cargarTodos()) {
-                            System.out.println(p.toString_consola(gestionCliente.cargarTodos()));
+                        for (Pago p : pagoGestion.cargarTodos()) {
+                            System.out.println(p.toString_consola(clienteGestion.cargarTodos()));
                         }
                 }
             } catch (InputMismatchException e) {
@@ -82,7 +82,7 @@ public class Main {
     }
 
 
-    public static Cliente altaCliente(ClienteGestion gestionCliente, ILeerEscribir manejador) {
+    public static Cliente altaCliente(ClienteGestion gestionCliente) {
         Scanner sc = new Scanner(System.in);
         LocalDate fecha = null;
         String telefono = null;
@@ -108,21 +108,10 @@ public class Main {
 
             } while (!valido);
             valido = false;
-            do {
-                try {
-                    System.out.print("Introduce tu fecha: ");
-                    String fechaString = sc.next().trim();
-                    fecha = LocalDate.parse(fechaString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-                    valido = true;
 
-                } catch (DateTimeException e) {
-                    System.out.println("ERROR: debe ser \'dd/MM/aaaa\'" + e.getMessage());
-                    valido = false;
-                }
-            } while (!valido);
             System.out.println("Introduce tu matricula: ");
             String matricula = sc.next().trim();
-            return new Cliente((manejador.ultimoID(rutaClientes) + 1), nombre, telefono, fecha, matricula);
+            return new Cliente((byte) (gestionCliente.ultimoID() + 1), nombre, telefono, matricula);
         } catch (InputMismatchException e) {
             System.out.println("ERROR: " + e.getMessage());
             sc.nextLine().trim();
@@ -131,7 +120,7 @@ public class Main {
 
     }
 
-    public static Pago procesarPago(ClienteGestion gestionCliente, PagoGestion gestionPago, ILeerEscribir manejador) {
+    public static Pago procesarPago(ClienteGestion gestionCliente, PagoGestion gestionPago) {
         Scanner sc = new Scanner(System.in);
         boolean valido = false;
         int id_cliente = 0;
@@ -215,7 +204,7 @@ public class Main {
         combustible = sc.nextLine();
 
 
-        return new Pago(manejador.ultimoID(rutaPagos) + 1, id_cliente, fecha, importe, litros, combustible);
+        return new Pago((byte) (gestionPago.ultimoID() + 1), id_cliente, fecha, importe, litros, combustible);
     }
 
 

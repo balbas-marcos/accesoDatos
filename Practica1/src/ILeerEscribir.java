@@ -1,8 +1,7 @@
 import java.util.List;
 
-public interface ILeerEscribir<T> {
-    void escribir(String ruta, List<T> elementos);
-    List<T> leer(String ruta);
-    int ultimoID(String ruta);
-    String toString_personalizado(T e);
+public interface ILeerEscribir <T> {
+    void guardar(T elemento);
+    List<T> cargarTodos();
+    <T> void ultimoID(T elemento);
 }

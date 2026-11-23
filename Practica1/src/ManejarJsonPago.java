@@ -10,27 +10,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ManejarJsonPago implements ILeerEscribir<Pago> {
-    public ManejarJsonPago() {
+    String ruta;
+
+    public ManejarJsonPago(String ruta) {
+        this.ruta = ruta;
     }
 
     @Override
-    public int ultimoID(String ruta) {
-        List<Pago> clientesActualizados = leer(ruta);
-
-        if (clientesActualizados == null || clientesActualizados.isEmpty() || Files.notExists(Path.of(ruta))) {
-            return 0;
+    public void guardar(Pago pago) {
+        List<Pago> pagos = new ArrayList<>();
+        Path directorio = Path.of(ruta);
+        if (Files.notExists(directorio)) {
+            try {
+                Files.createDirectories(directorio);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
-        Pago ultimoPago = clientesActualizados.get(0);
-        return ultimoPago.getID();
-    }
 
 
-    @Override
-    public void escribir(String ruta, List<Pago> pagos) {
-        Path archivo = Path.of(ruta);
-        pagos.addAll(leer(ruta));
-        pagos.sort(Pago :: compareID);
-        try (BufferedWriter out = Files.newBufferedWriter(archivo, StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING)) {
+        Path archivo = directorio.resolve("pagos.json");
+        if (Files.notExists(archivo)) {
+            try {
+                Files.createFile(archivo);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            pagos.addAll(cargarTodos());
+        }
+        pagos.add(pago);
+
+
+        try (BufferedWriter out = Files.newBufferedWriter(archivo, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)) {
             out.write("{");
             out.newLine();
             out.write("\t\"pagos\":");
@@ -38,63 +50,68 @@ public class ManejarJsonPago implements ILeerEscribir<Pago> {
             out.write("\t[");
             out.newLine();
 
-            int contador = 0;
-            for (Pago p : pagos) {
-                out.write(toString_personalizado(p));
-                contador++;
-
-                if (contador < pagos.size()) {
+            for (int i = 0; i < pagos.size(); i++) {
+                out.write("\t\t" + toJson(pagos.get(i)));
+                if (i < pagos.size() - 1) {
                     out.write(",");
                 }
-
                 out.newLine();
             }
-
-            out.newLine();
             out.write("\t]");
             out.newLine();
             out.write("}");
-            pagos.clear();
 
         } catch (IOException e) {
             System.out.println("ERROR: " + e.getMessage());
         }
-
     }
 
     @Override
-    public List<Pago> leer(String ruta) {
-        List<Pago> leido = new ArrayList<>();
-        Path archivo = Path.of(ruta);
-        try (BufferedReader in = Files.newBufferedReader(archivo, StandardCharsets.UTF_8)) {
+    public List<Pago> cargarTodos() {
+        List<Pago> pagos = new ArrayList<>();
+        Path directorio = Path.of(ruta);
+        Path archivo = directorio.resolve("pagos.json");
+        if(Files.notExists(directorio) || Files.notExists(directorio.resolve("pagos.json"))) {
+            System.out.println("No se encontro el archivo");
+            return null;
+        }
+        try (BufferedReader in = Files.newBufferedReader(archivo)){
             String linea;
             in.readLine();
             in.readLine();
             in.readLine();
-            while ((linea = in.readLine()) != null) {
-                if (!linea.isBlank() && !linea.trim().equals("]") && !linea.trim().equals("}")) {
-                    String[] datos_enteros = linea.split(",");
-                    String[] datos_separados = new String[datos_enteros.length];
-                    List<String> datosList = new ArrayList<>();
-                    for (int i = 0; i < datos_enteros.length; i++) {
-                        datos_separados = datos_enteros[i].split(":");
-                        datos_separados = datos_separados[1].split(", \"");
-                        datosList.add(datos_separados[0]);
-                        //System.out.println(datos_semi_separados[1]);
-                    }
-                    String[] datos_final = datosList.toArray(new String[6]);
-                    leido.add(new Pago(Integer.parseInt(datos_final[0].replace("\"", "").trim()), Integer.parseInt(datos_final[1].replace("\"","").trim()), LocalDate.parse(datos_final[2].replace("\"","").trim()), Double.parseDouble(datos_final[3].replace("\"","").trim()), Double.parseDouble(datos_final[4].replace("\"","").trim()), datos_final[5].replace("\"","").replace("}","").replace(",","").trim()));
+            while((linea = in.readLine()) != null && !linea.trim().equals("}") && !linea.trim().equals("]")) {
+                String[] datos = linea.split(",");
+                String[] datos_divididos = new String[6];
+                for(int i = 0; i < datos.length; i++){
+                    String[] datos_semi_divididos = datos[i].split(": ");
+                    datos_divididos[i] = datos_semi_divididos[1].replace("\"", "");
+
                 }
+
+                byte id = Byte.parseByte(datos_divididos[0].trim());
+                byte id_cliente = Byte.parseByte(datos_divididos[1].trim());
+                LocalDate fecha = LocalDate.parse(datos_divididos[2].trim());
+                Double importe = Double.parseDouble(datos_divididos[3].trim());
+                Double cantidad = Double.parseDouble(datos_divididos[4].trim());
+                String combustible = datos_divididos[5].trim().replace("}", "");
+                pagos.add(new Pago(id, id_cliente, fecha, importe, cantidad, combustible));
+
             }
-        } catch (IOException e) {
+            in.readLine();
+
+        }catch (IOException e){
             System.out.println("ERROR: " + e.getMessage());
         }
-        return leido;
+        return pagos;
     }
 
-
     @Override
-    public String toString_personalizado(Pago p) {
-        return "\t\t{\"id\": " + p.getID() + ",\"nombre\": \"" + p.getID_cliente() + "\",\"fecha\": \"" + p.getFecha() + "\",\"importe\": \"" + p.getImporte() + "\", \"litros\": \"" + p.getLitros() + "\", \"combustible\": \"" + p.getCombustible() + "\"}";
+    public <T> void ultimoID(T elemento) {
+
+    }
+
+    public String toJson(Pago pago) {
+        return "{\"id\": " + pago.getID() + ",\"nombre\": \"" + pago.getID_cliente() + "\",\"fecha\": \"" + pago.getFecha()+ "\",\"importe\": \"" + pago.getImporte()+ "\",\"cantidad\": \"" + pago.getLitros() + "\", \"combustible\": \"" + pago.getCombustible() + "\"}";
     }
 }

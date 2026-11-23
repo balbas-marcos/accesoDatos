@@ -5,73 +5,78 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ManejarCSVCliente implements ILeerEscribir<Cliente> {
-    String separador = ",";
-    public ManejarCSVCliente() {
+    String ruta;
+    Path directorio;
+    Path archivo;
+
+    public ManejarCSVCliente(String ruta) {
+        this.ruta = ruta;
     }
 
     @Override
-    public int ultimoID(String ruta) {
-        List<Cliente> clientesActualizados = leer(ruta);
-        if (clientesActualizados == null || clientesActualizados.isEmpty() || Files.notExists(Path.of(ruta))) {
-            return 0;
-        }
-        Cliente ultimoCliente = clientesActualizados.get(clientesActualizados.size() - 1);
-        return ultimoCliente.getID();
-    }
-
-
-    @Override
-    public void escribir(String ruta, List<Cliente> clientes) {
-        Path archivo = Path.of(ruta);
-        try (BufferedWriter out = Files.newBufferedWriter(archivo, StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.APPEND)) {
-            for (Cliente c : clientes) {
-                out.write(toString_personalizado(c));
-                out.newLine();
+    public void guardar(Cliente cliente) {
+        Path directorio = Path.of(ruta);
+        try {
+            if (Files.notExists(directorio)) {
+                Files.createDirectories(directorio);
             }
         } catch (IOException e) {
-            System.out.println("ERROR: " + e.getMessage());
+            throw new RuntimeException(e);
+        }
+
+        Path archivo = directorio.resolve("clientes.csv");
+        if (Files.notExists(archivo)) {
+            try {
+                Files.createFile(archivo);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        try (BufferedWriter out = Files.newBufferedWriter(archivo, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.APPEND)) {
+            out.write(toCSV(cliente));
+            out.newLine();
+        } catch (IOException e) {
+            System.out.println("ERROR:" + e.getMessage());
         }
     }
 
     @Override
-    public List<Cliente> leer(String ruta) {
-        List<Cliente> leido = new ArrayList<>();
-        Path archivo = Path.of(ruta);
-        try (BufferedReader in = Files.newBufferedReader(archivo, StandardCharsets.UTF_8)) {
-            String linea;
-            while ((linea = in.readLine()) != null) {
+    public List<Cliente> cargarTodos() {
+        Path archivo = Path.of(ruta).resolve("clientes.csv");
+        List<Cliente> clientes = new ArrayList<>();
+        try (BufferedReader in = Files.newBufferedReader(archivo)) {
+            String linea = in.readLine();
+            while (linea != null) {
                 if (!linea.isBlank()) {
-                    //por si alguna linea en blanco saltarla
-                    String[] datos = linea.split(separador);
-                    String id = datos[0];
-                    String nombre = datos[1];
-                    String telefono = datos[2];
-                    LocalDate fecha = LocalDate.parse(datos[3]);
-                    String matricula = datos[4];
-                    leido.add(new Cliente(Integer.parseInt(id), nombre, telefono, fecha, matricula));
+                    String[] datos = linea.replace(";", "").split(",");
+                    byte id = Byte.parseByte(datos[0]);
+                    String nombre = datos[1].trim();
+                    String telefono = datos[2].trim();
+                    String matricula = datos[3].trim();
+
+                    clientes.add(new Cliente(id,nombre, telefono, matricula));
                 }
+                linea = in.readLine();
             }
         } catch (IOException e) {
-            System.out.println("ERROR: " + e.getMessage());
+            System.out.println("ERROR:");
         }
-        return leido;
+        clientes.sort(Cliente::compareTo);
+        return clientes;
     }
-
 
     @Override
-    public String toString_personalizado(Cliente c) {
+    public <T> void ultimoID(T elemento) {
 
-        return c.getID() + separador +
-                c.getNombre() + separador +
-                c.getTelefono() + separador +
-                c.getFecha() + separador +
-                c.getMatricula();
     }
 
 
+    public String toCSV(Cliente cliente) {
+        return cliente.getID() + "," + cliente.getNombre() + "," + cliente.getTelefono() + "," + cliente.getMatricula();
+    }
 }

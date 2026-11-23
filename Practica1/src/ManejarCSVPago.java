@@ -1,74 +1,90 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class ManejarCSVPago implements ILeerEscribir<Pago> {
-    String separador = ",";
-    public ManejarCSVPago() {
+    String ruta;
+
+    public ManejarCSVPago(String ruta) {
+        this.ruta = ruta;
     }
 
     @Override
-    public int ultimoID(String ruta) {
-        List<Pago> clientesActualizados = leer(ruta);
-
-        if (clientesActualizados == null || clientesActualizados.isEmpty()|| Files.notExists(Path.of(ruta))) {
-            return 0;
-        }
-        Pago ultimoPago = clientesActualizados.get(clientesActualizados.size() - 1);
-        return ultimoPago.getID();
-    }
-
-
-    @Override
-    public void escribir(String ruta, List<Pago> pagos) {
-        Path archivo = Path.of(ruta);
-
-
-        try (BufferedWriter out = Files.newBufferedWriter(archivo, StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING)) {
-            for (Pago p : pagos) {
-                out.write(toString_personalizado(p));
-                out.newLine();
+    public void guardar(Pago pago) {
+        Path directorio = Path.of(ruta);
+        if (Files.notExists(directorio)) {
+            try {
+                Files.createDirectories(directorio);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
+        }
+
+        Path archivo = directorio.resolve("pagos.csv");
+        if (Files.notExists(archivo)) {
+            try {
+                Files.createFile(archivo);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+
+        try (BufferedWriter out = Files.newBufferedWriter(archivo, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.APPEND)) {
+            out.write(toCSV(pago));
+            out.newLine();
         } catch (IOException e) {
             System.out.println("ERROR: " + e.getMessage());
         }
     }
 
     @Override
-    public List<Pago> leer(String ruta) {
-        List<Pago> leido = new ArrayList<>();
-        Path archivo = Path.of(ruta);
-        try (BufferedReader in = Files.newBufferedReader(archivo, StandardCharsets.UTF_8)) {
-            String linea;
-            while ((linea = in.readLine()) != null) {
-                if (!linea.isBlank()) {
-                    String[] datos = linea.split(separador);
-                    leido.add(new Pago(Integer.parseInt(datos[0]), Integer.parseInt(datos[1]), LocalDate.parse(datos[2]), Double.parseDouble(datos[3]), Double.parseDouble(datos[4]), datos[5]));
+    public List<Pago> cargarTodos() {
+        List<Pago> pagos = new ArrayList<>();
+        Path directorio = Path.of(ruta);
+        Path archivo = directorio.resolve("pagos.csv");
+        try(BufferedReader in = Files.newBufferedReader(archivo)){
+            String linea = in.readLine();
+            while (linea != null){
+                if(!linea.isBlank()){
+                    String[] datos = linea.split(",");
+                    byte ID = Byte.parseByte(datos[0].trim());
+                    byte ID_cliente = Byte.parseByte(datos[1].trim());
+                    LocalDate fecha = LocalDate.parse(datos[2].trim());
+                    Double importe = Double.parseDouble(datos[3].trim());
+                    Double cantidad = Double.parseDouble(datos[4].trim());
+                    String combustible = datos[5];
+
+                    pagos.add(new Pago(ID, ID_cliente, fecha, importe, cantidad, combustible));
                 }
+                linea = in.readLine();
             }
-        } catch (IOException e) {
+        }catch (IOException e){
             System.out.println("ERROR: " + e.getMessage());
         }
-        return leido;
+        return pagos;
     }
-
 
     @Override
-    public String toString_personalizado(Pago p) {
+    public <T> void ultimoID(T elemento) {
 
-        return p.getID() + separador +
-                p.getID_cliente() + separador +
-                p.getFecha() + separador +
-                p.getImporte() + separador +
-                p.getLitros() + separador +
-                p.getCombustible();
     }
 
+
+    public String toCSV(Pago pago) {
+        return pago.getID() + ", " +
+                pago.getID_cliente() + ", " +
+                pago.getFecha() + ", " +
+                pago.getImporte() + ", " +
+                pago.getLitros() + ", " +
+                pago.getCombustible();
+    }
 }
