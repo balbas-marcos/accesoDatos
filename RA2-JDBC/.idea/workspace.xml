@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="06550e47-7871-4488-acab-be29d20c56d4" name="Changes" comment="con base de datos">
+      <change afterPath="$PROJECT_DIR$/../Examen_RA1_Proyecto_Alumno/Examen_RA1_Proyecto_Alumno/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Practica1/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Practica1/.idea/libraries/mysql_connector_j_9_7_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Practica1/src/ManejarSQLCliente.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Practica1/src/ManejarSQLPago.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Practica1/src/MySQL.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/db-forest-config.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/settings.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sql/mysql/01-esquema.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sql/mysql/02-datos.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sql/sqlite/01-esquema.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sql/sqlite/02-datos.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/es/iesluisbraille/accesodatos/jardin/bloque02/ErrorDeConexion.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/es/iesluisbraille/accesodatos/jardin/bloque02/MetadatosSqlite.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/es/iesluisbraille/accesodatos/jardin/bloque02/PrimeraConexionMysql.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/es/iesluisbraille/accesodatos/jardin/bloque02/PrimeraConexionSqlite.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/es/iesluisbraille/accesodatos/jardin/bloque02/ConexionSqliteTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/generar_datos.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/preparar_sqlite.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/validar_sqlite.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Practica1/Practica1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../Practica1/Practica1.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Practica1/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Practica1/src/Main.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseLocalColorSettings">
+    <colors>
+      <entry key="4ced98f6-5a6c-4069-b660-10080f4fdc20" value="" />
+      <entry key="58ceec71-a106-46bf-889e-9c3adeff6051" value="" />
+    </colors>
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="ra2-jdbc-alumnado" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;balbas-marcos&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/balbas-marcos/accesoDatos.git&quot;,
+    &quot;accountId&quot;: &quot;ec6fb70c-096e-4782-8298-3260ff9a9ed6&quot;
+  }
+}</component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="1.018355544161463" />
+      <entry key="MS500" value="1.9286946104009122" />
+      <entry key="S2" value="3.8639229587421835" />
+      <entry key="S5" value="5.16018320075276" />
+      <entry key="S10" value="5.9182408265337" />
+      <entry key="S30" value="6.657367138432889" />
+      <entry key="S60" value="7.227390525963778" />
+      <entry key="M2" value="8.038395817480339" />
+      <entry key="M5" value="9.015160686698009" />
+      <entry key="M10" value="9.715829664767107" />
+      <entry key="M15" value="10.300641011812472" />
+      <entry key="M30" value="11.60653581102101" />
+      <entry key="H1" value="12.884364382551414" />
+      <entry key="H2" value="13.806405838427727" />
+      <entry key="H4" value="14.364314428212564" />
+      <entry key="D1" value="14.888169577655805" />
+      <entry key="W1" value="14.983873406487133" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="2.073042392952259E-6" />
+      <entry key="MS500" value="0.08510508608455691" />
+      <entry key="S2" value="0.8515010027369297" />
+      <entry key="S5" value="1.4128548849845537" />
+      <entry key="S10" value="1.6793172148925117" />
+      <entry key="S30" value="1.9418470019878926" />
+      <entry key="S60" value="2.3454197913926715" />
+      <entry key="M2" value="3.0671290214069558" />
+      <entry key="M5" value="3.992255356942846" />
+      <entry key="M10" value="4.445720196993804" />
+      <entry key="M15" value="4.61824439188542" />
+      <entry key="M30" value="4.802723092559629" />
+      <entry key="H1" value="4.89970674410751" />
+      <entry key="H2" value="4.9494325846715626" />
+      <entry key="H4" value="4.974610196260364" />
+      <entry key="D1" value="4.99575355352371" />
+      <entry key="W1" value="4.999393001025775" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="0.9065610532590775" />
+      <entry key="MS500" value="1.8836853152923176" />
+      <entry key="S2" value="4.388976922393393" />
+      <entry key="S5" value="6.3379310131278155" />
+      <entry key="S10" value="7.452267668570001" />
+      <entry key="S30" value="8.540838902307582" />
+      <entry key="S60" value="9.535597767459162" />
+      <entry key="M2" value="11.079867267314786" />
+      <entry key="M5" value="12.993569991431722" />
+      <entry key="M10" value="14.153630117829907" />
+      <entry key="M15" value="14.913256775752151" />
+      <entry key="M30" value="16.406173216945643" />
+      <entry key="H1" value="17.782425255063977" />
+      <entry key="H2" value="18.754982722167977" />
+      <entry key="H4" value="19.338487467201507" />
+      <entry key="D1" value="19.88384887063687" />
+      <entry key="W1" value="19.983255763037945" />
+    </decayedShown>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="3LJjOPDAPV5rzahuMUgKnitOW8X" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Database Script.02-datos.sql.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.RA2-JDBC [:es.iesluisbraille.accesodatos.jardin.bloque02.ErrorDeConexion.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.RA2-JDBC [:es.iesluisbraille.accesodatos.jardin.bloque02.MetadatosSqlite.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.RA2-JDBC [:es.iesluisbraille.accesodatos.jardin.bloque02.PrimeraConexionMysql.main()].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;gasolineraMySQL&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Users/Alumno Mañana/marcos/repositorios/ADV2/RA2-JDBC&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.sync&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;sqlite&quot;,
+      &quot;mysql&quot;
+    ],
+    &quot;RunConfigurationTargetLRU&quot;: [
+      &quot;4ced98f6-5a6c-4069-b660-10080f4fdc20&quot;
+    ]
+  }
+}</component>
+  <component name="RunAnythingCache">
+    <myKeys>
+      <visibility group="Gradle Tasks" flag="true" />
+      <visibility group="Grunt" flag="true" />
+      <visibility group="Gulp" flag="true" />
+      <visibility group="HTTP Requests" flag="true" />
+      <visibility group="Maven Goals" flag="true" />
+      <visibility group="Recent projects" flag="true" />
+      <visibility group="Run Configurations" flag="true" />
+      <visibility group="npm" flag="true" />
+      <visibility group="pnpm" flag="true" />
+      <visibility group="yarn" flag="true" />
+    </myKeys>
+  </component>
+  <component name="RunManager" selected="Database Script.02-datos.sql (1)">
+    <configuration name="MetadatosSQLite" type="Application" factoryName="Application">
+      <option name="ALTERNATIVE_JRE_PATH" value="21" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="es.iesluisbraille.accesodatos.jardin.bloque02.MetadatosSqlite" />
+      <module name="ra2-jdbc-alumnado.main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MySQL" type="Application" factoryName="Application">
+      <option name="ALTERNATIVE_JRE_PATH" value="21" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <envs>
+        <env name="JARDIN_MYSQL_PASSWORD" value="1234" />
+        <env name="JARDIN_MYSQL_URL" value="jdbc:mysql://localhost:3306/ra2_botanico" />
+        <env name="JARDIN_MYSQL_USER" value="botanico" />
+      </envs>
+      <option name="MAIN_CLASS_NAME" value="es.iesluisbraille.accesodatos.jardin.bloque02.PrimeraConexionMysql" />
+      <module name="ra2-jdbc-alumnado.main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MySQLErrorConexion" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="es.iesluisbraille.accesodatos.jardin.bloque02.ErrorDeConexion" />
+      <module name="ra2-jdbc-alumnado.main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MySQLite" type="Application" factoryName="Application">
+      <option name="ALTERNATIVE_JRE_PATH" value="21" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="es.iesluisbraille.accesodatos.jardin.bloque02.PrimeraConexionSqlite" />
+      <module name="ra2-jdbc-alumnado.main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="02-datos.sql (1)" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
+      <script-file value="$PROJECT_DIR$/sql/mysql/02-datos.sql" />
+      <script-mode>FILE</script-mode>
+      <method v="2" />
+    </configuration>
+    <configuration name="02-datos.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
+      <script-file value="$PROJECT_DIR$/sql/sqlite/02-datos.sql" />
+      <script-mode>FILE</script-mode>
+      <data-source id="4ced98f6-5a6c-4069-b660-10080f4fdc20" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Application.MetadatosSQLite" />
+      <item itemvalue="Application.MySQLite" />
+      <item itemvalue="Application.MySQL" />
+      <item itemvalue="Application.MySQLErrorConexion" />
+      <item itemvalue="Database Script.02-datos.sql (1)" />
+      <item itemvalue="Database Script.02-datos.sql" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Database Script.02-datos.sql (1)" />
+        <item itemvalue="Database Script.02-datos.sql" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-a203e0a19954-intellij.indexing.shared.core-IU-262.10315.125" />
+        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-IU-262.10315.125" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="06550e47-7871-4488-acab-be29d20c56d4" name="Changes" comment="" />
+      <created>1793179033123</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1793179033123</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="con base de datos" />
+    <option name="LAST_COMMIT_MESSAGE" value="con base de datos" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
